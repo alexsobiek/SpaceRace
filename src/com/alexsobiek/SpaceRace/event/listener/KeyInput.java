@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class KeyInput {
     public KeyInput() {
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(ke -> {
-            SpaceRace.EVENT_BUS.post(new KeyInputEvent(ke.getKeyChar()));
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(key -> {
+            SpaceRace.EVENT_BUS.post(new KeyInputEvent(key.getKeyChar(), key.getKeyCode()));
             return true;
         });
     }
