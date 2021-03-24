@@ -1,18 +1,19 @@
 package com.alexsobiek.SpaceRace;
 
+import com.alexsobiek.SpaceRace.entity.entities.Star;
 import com.alexsobiek.SpaceRace.event.EventHandler;
-import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
+import com.alexsobiek.SpaceRace.listeners.KeyListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Window extends JPanel implements Listener {
+public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Listener {
 
-    KeyManager keyManager = new KeyManager();
+    KeyListener keyManager = new KeyListener();
 
-    private static JFrame frame = null;
+    public static JFrame frame = null;
 
     public static final int winHeight = 800;
     public static final int winWidth = 1200;
@@ -30,7 +31,6 @@ public class Window extends JPanel implements Listener {
         frame.setBackground(Color.BLACK);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.addKeyListener(keyManager);
         spawnStars();
         Timer.start(15);
     }
@@ -86,7 +86,7 @@ public class Window extends JPanel implements Listener {
     private void drawCenteredString(Graphics g, String string) {
         int width = (int) g.getFontMetrics().getStringBounds(string, g).getWidth();
         int height = (int) g.getFontMetrics().getStringBounds(string, g).getHeight();
-        g.drawString(string, (halfX - (width / 2)), (halfY - (height /2)));
+        g.drawString(string, (halfX - (width / 2)), (halfY - (height / 2)));
     }
 
 }

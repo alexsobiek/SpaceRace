@@ -1,4 +1,4 @@
-package com.alexsobiek.SpaceRace;
+package com.alexsobiek.SpaceRace.entity;
 //Just to tag all entities
 public interface IEntity {
     void move(MoveDirection direction);

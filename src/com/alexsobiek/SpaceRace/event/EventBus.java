@@ -28,15 +28,19 @@ public class EventBus {
         listeners.remove(listener);
     }
 
-    public void post(Event event) {
+    public synchronized void post(Event event) {
         listeners.forEach((listener, listenerInfos) -> listenerInfos.forEach(listenerInfo -> {
             try {
-                listenerInfo.method.invoke(listenerInfo.target, event);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
+                Method method = listenerInfo.method;
+                Class<?> param = method.getParameters()[0].getType();
+                if (param.equals(event.getClass())) {
+                    listenerInfo.method.invoke(listenerInfo.target, event);
+                }
+            } catch (Throwable t) {
             }
         }));
     }
+
     private static final class ListenerInfo {
         public final Listener target;
         public final Method method;

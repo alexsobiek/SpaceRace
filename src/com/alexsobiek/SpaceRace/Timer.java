@@ -24,8 +24,8 @@ public class Timer implements Listener {
 
     public static void start(int time) {
         System.out.println("Starting timer with " + time + " seconds...");
-        if ((time%2) == 0) time++; // Time must be odd for proper math to take place.
-        tickTime = (time * TickManager.TPS); // 15 seconds in ticks
+        if (time%2 == 0) time++; // Time must be odd for proper math to take place.
+        tickTime = time * TickManager.TPS; // 15 seconds in ticks
         timeLeft = time;
         ticksUntilPixelUpdate = TickManager.TPS / (Window.halfY / time);
     }

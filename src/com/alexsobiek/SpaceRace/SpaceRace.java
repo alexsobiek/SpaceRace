@@ -7,11 +7,13 @@ for COMP 170 Loyola University Chicago
 */
 
 import com.alexsobiek.SpaceRace.event.EventBus;
+import com.alexsobiek.SpaceRace.event.listener.KeyInput;
 
 public class SpaceRace {
     public static EventBus EVENT_BUS;
     public static void main(String[] args) {
         EVENT_BUS = new EventBus();
+        new KeyInput();
         new Timer();
         System.out.println("Starting");
         GameManager.start();
