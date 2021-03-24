@@ -20,7 +20,7 @@ public class Player implements IEntity {
     public Player(int x, int y, int speed) {
         this.x = x;
         this.y = y;
-
+        this.speed = speed;
         originalPos[0] = x;
         originalPos[1] = y;
 
@@ -56,7 +56,7 @@ public class Player implements IEntity {
     public void move(MoveDirection direction) {
         PlayerMoveEvent moveEvent = new PlayerMoveEvent(this);
         SpaceRace.EVENT_BUS.post(moveEvent);
-        if (moveEvent.isCcancelled()) return;
+        if (moveEvent.isCancelled()) return;
         switch (direction) {
             case UP:
                 y -= speed;
