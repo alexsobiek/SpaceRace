@@ -10,14 +10,20 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Player implements IEntity {
+    private int[] originalPos = new int[2];
     private int x;
     private int y;
-    private int offset;
     private int speed;
     private MoveDirection direction;
     private final UUID id;
 
-    public Player() {
+    public Player(int x, int y, int speed) {
+        this.x = x;
+        this.y = y;
+
+        originalPos[0] = x;
+        originalPos[1] = y;
+
         id = UUID.randomUUID();
     }
 
@@ -38,12 +44,12 @@ public class Player implements IEntity {
     }
 
     public boolean isOutOfBounds() {
-        return (x > Window.winWidth && direction == IEntity.MoveDirection.RIGHT || x < 0 && direction == IEntity.MoveDirection.LEFT);
+        return (y > Window.winHeight && direction == IEntity.MoveDirection.DOWN || y < 0 && direction == IEntity.MoveDirection.UP);
     }
 
     public void reset() {
-        if (direction == MoveDirection.LEFT) x = Window.winWidth + offset;
-        else x = -offset;
+        x = originalPos[0];
+        y = originalPos[1];
     }
 
     @Override
