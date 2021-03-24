@@ -1,41 +1,49 @@
 package com.alexsobiek.SpaceRace.event;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EventBus {
-    ArrayList<Listener> listeners = new ArrayList<>();
+    private final ConcurrentHashMap<Listener, List<ListenerInfo>> listeners = new ConcurrentHashMap<>();
 
     public void subscribe(Listener listener) {
-        if (listeners.contains(listener)) return;
-        listeners.add(listener);
+        for (Method method : listener.getClass().getMethods()) {
+            if (method.isAnnotationPresent(EventHandler.class)) {
+                if (method.getParameterCount() == 1) {
+                    Class<?> param = method.getParameters()[0].getType();
+                    if (param.getSuperclass().getSimpleName().equals("Event")) {
+                        List<ListenerInfo> infos = new ArrayList<>();
+                        infos.add(new ListenerInfo(listener, method));
+                        listeners.put(listener, infos);
+                    }
+                }
+            }
+        }
     }
 
     public void unSubscribe(Listener listener) {
-        if (!listeners.contains(listener)) return;
         listeners.remove(listener);
     }
 
     public void post(Event event) {
-        for (Listener listener : listeners) {
-            Method[] methods = listener.getClass().getMethods();
-            if (methods.length > 0) {
-                for (Method method : methods) {
-                    if (method.isAnnotationPresent(EventHandler.class)) {
-                        if (method.getParameterCount() > 0) {
-                            Parameter param = method.getParameters()[0];
-                            if (param.getType().getSuperclass().getSimpleName().equals("Event")) {
-                                try {
-                                    method.invoke(event);
-                                } catch (Throwable t) {
-                                    t.printStackTrace();
-                                }
-                            }
-                        }
-                    }
-                }
+        listeners.forEach((listener, listenerInfos) -> listenerInfos.forEach(listenerInfo -> {
+            try {
+                listenerInfo.method.invoke(listenerInfo.target, event);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
             }
+        }));
+    }
+    private static final class ListenerInfo {
+        public final Listener target;
+        public final Method method;
+
+        public ListenerInfo(Listener target, Method method) {
+            this.target = target;
+            this.method = method;
         }
     }
 }

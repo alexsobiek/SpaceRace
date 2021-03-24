@@ -11,7 +11,7 @@ public class Timer {
     public static void handleTick() {
         tickTime--;
         timerHeight -= Window.halfX / tickTime;
-        System.out.println(timerHeight);
+        //System.out.println(timerHeight);
     }
 
     public static void drawTimer(Graphics2D g2d) {
