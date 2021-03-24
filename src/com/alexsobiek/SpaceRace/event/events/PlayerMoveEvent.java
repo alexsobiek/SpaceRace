@@ -17,12 +17,12 @@ public class PlayerMoveEvent extends Event implements Cancellable {
     }
 
     @Override
-    public void setCcancelled(boolean cancel) {
+    public void setCancelled(boolean cancel) {
         cancelled = cancel;
     }
 
     @Override
-    public boolean isCcancelled() {
+    public boolean isCancelled() {
         return cancelled;
     }
 }

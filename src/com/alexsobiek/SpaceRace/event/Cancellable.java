@@ -1,7 +1,7 @@
 package com.alexsobiek.SpaceRace.event;
 
 public interface Cancellable {
-    void setCcancelled(boolean cancel);
+    void setCancelled(boolean cancel);
 
-    boolean isCcancelled();
+    boolean isCancelled();
 }
