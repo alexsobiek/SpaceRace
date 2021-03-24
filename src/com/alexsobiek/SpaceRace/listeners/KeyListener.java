@@ -17,7 +17,6 @@ public class KeyListener implements Listener {
     @EventHandler
     public void keyReleased(KeyInputEvent event) {
         int keyCode = event.getCode();
-        System.out.println(keyCode);
         switch (keyCode) {
             case 82:
                 GameManager.restart();
