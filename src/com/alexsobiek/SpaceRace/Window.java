@@ -1,8 +1,10 @@
 package com.alexsobiek.SpaceRace;
 
+import com.alexsobiek.SpaceRace.entity.entities.Player;
 import com.alexsobiek.SpaceRace.entity.entities.Star;
 import com.alexsobiek.SpaceRace.event.EventHandler;
 import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
+import com.alexsobiek.SpaceRace.event.events.KeyInputEvent;
 import com.alexsobiek.SpaceRace.listeners.KeyListener;
 
 import javax.swing.*;
@@ -23,6 +25,9 @@ public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Lis
 
     private static final java.util.List<Star> stars = new ArrayList<>();
 
+    public static Player player1;
+    public static Player player2;
+
     public Window() {
         SpaceRace.EVENT_BUS.subscribe(this);
         frame = new JFrame("Space Race");
@@ -32,6 +37,7 @@ public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Lis
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         spawnStars();
+        spawnPlayers();
         Timer.start(10);
     }
 
@@ -46,6 +52,11 @@ public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Lis
         for (int i = 0; i <= maxStars; i++) stars.add(new Star());
     }
 
+    private static void spawnPlayers() {
+        player1 = new Player((halfX - 100), (winHeight - 100), 4);
+        player2 = new Player((halfX + 100), (winHeight - 100), 4);
+    }
+
     @EventHandler
     public void onTick(GameTickEvent event) {
         if (frame != null) {
@@ -53,7 +64,6 @@ public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Lis
             frame.repaint();
         }
     }
-
 
     public void moveStars() {
         for (Star star : stars) {
@@ -79,6 +89,12 @@ public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Lis
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.fillOval(star.getX(), star.getY(), 6, 6);
         });
+        drawPlayer(g2d, player1);
+        drawPlayer(g2d, player2);
+    }
+
+    private void drawPlayer(Graphics2D g2d, Player player) {
+        if (player != null) g2d.fillOval(player.getX(), player.getY(), 40, 40);
     }
 
     private void drawCenteredString(Graphics g, String string) {
