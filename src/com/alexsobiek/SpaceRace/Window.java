@@ -19,7 +19,7 @@ public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Lis
     public static final int winWidth = 1200;
     public static final int halfY = Window.winHeight / 2;
     public static final int halfX = Window.winWidth / 2;
-    public static final int maxStars = 150;
+    public static final int maxStars = 50;
 
     private static final java.util.List<Star> stars = new ArrayList<>();
 
@@ -32,13 +32,13 @@ public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Lis
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         spawnStars();
-        Timer.start(15);
+        Timer.start(10);
     }
 
     public static void reset() {
         stars.clear();
         spawnStars();
-        Timer.start(15);
+        Timer.start(10);
         frame.repaint();
     }
 
@@ -73,14 +73,12 @@ public class Window extends JPanel implements com.alexsobiek.SpaceRace.event.Lis
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
+        if (GameManager.isRunning()) Timer.drawTimer(g2d);
+        else drawCenteredString(g, "Game Over!");
         stars.forEach(star -> {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.fillOval(star.getX(), star.getY(), 6, 6);
         });
-        if (GameManager.isRunning()) Timer.drawTimer(g2d);
-        else {
-            drawCenteredString(g, "Game Over!");
-        }
     }
 
     private void drawCenteredString(Graphics g, String string) {
