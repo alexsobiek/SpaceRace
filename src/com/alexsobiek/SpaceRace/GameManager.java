@@ -17,6 +17,8 @@ public class GameManager {
     }
 
     public static void end() { // Game over
+        Window.player1.resetPos();
+        Window.player2.resetPos();
         TickManager.stopTicking();
         running = false;
     }
@@ -36,6 +38,7 @@ public class GameManager {
             TickManager.startTicking();
             running = true;
         }
+        System.out.println("Game Reset");
     }
 
     public static boolean isRunning() {
