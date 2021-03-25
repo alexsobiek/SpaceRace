@@ -40,6 +40,7 @@ public class Timer implements Listener {
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(timerStroke + 1));
         g2d.drawLine(Window.halfX, 0, Window.halfX, (int) timerHeight);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.WHITE); // Reset Color
+        g2d.setStroke(new BasicStroke(1)); // Reset Stroke
     }
 }
