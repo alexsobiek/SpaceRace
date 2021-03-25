@@ -51,8 +51,8 @@ public class Window extends JPanel implements Listener {
     }
 
     private static void spawnPlayers() {
-        player1 = new Player((halfX - 100), (winHeight - 100), 5);
-        player2 = new Player((halfX + 100), (winHeight - 100), 5);
+        player1 = new Player((halfX - 100), (winHeight - 100), 10);
+        player2 = new Player((halfX + 100), (winHeight - 100), 10);
     }
 
     @EventHandler
@@ -80,13 +80,16 @@ public class Window extends JPanel implements Listener {
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.WHITE);
         if (GameManager.isRunning()) Timer.drawTimer(g2d);
         else drawCenteredString(g2d, "Game Over!");
-        stars.forEach(star -> {
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.fillOval(star.getX(), star.getY(), 6, 6);
-        });
+
+        if (stars.size() > 0) {
+            stars.forEach(star -> {
+                g.fillOval(star.getX(), star.getY(), 6, 6);
+            });
+        }
         drawPlayer(g2d, player1);
         drawPlayer(g2d, player2);
         drawPlayerScores(g2d);
