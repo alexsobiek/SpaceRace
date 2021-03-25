@@ -19,7 +19,7 @@ public class Window extends JPanel implements Listener {
     public static final int winWidth = 1200;
     public static final int halfY = Window.winHeight / 2;
     public static final int halfX = Window.winWidth / 2;
-    public static final int maxStars = 50;
+    public static final int maxStars = 70;
 
     private static final List<Star> stars = new ArrayList<>();
 

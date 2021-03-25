@@ -18,4 +18,18 @@ public class KeyInputEvent extends Event {
     public int getCode() {
         return code;
     }
+
+    public static class Pressed extends KeyInputEvent {
+
+        public Pressed(char key, int code) {
+            super(key, code);
+        }
+    }
+
+    public static class Released extends KeyInputEvent {
+
+        public Released(char key, int code) {
+            super(key, code);
+        }
+    }
 }

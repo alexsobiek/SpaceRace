@@ -12,7 +12,7 @@ public class Star implements IEntity {
     private int offset;
     private int speed;
     private MoveDirection direction;
-    private static final Random rand = new Random();
+    private final MoveDirection[] directions = {MoveDirection.LEFT, MoveDirection.RIGHT};
     private final UUID id;
 
     public Star() {
@@ -22,7 +22,6 @@ public class Star implements IEntity {
 
 
     private void createStar() {
-        MoveDirection[] directions = {MoveDirection.LEFT, MoveDirection.RIGHT};
         direction = directions[rand.nextInt(directions.length)];
         offset = rand.nextInt(2000);
         speed = rand.nextInt(3);

@@ -15,7 +15,7 @@ public class KeyListener implements Listener {
     boolean paused = false;
 
     @EventHandler
-    public void keyReleased(KeyInputEvent event) {
+    public void keyReleased(KeyInputEvent.Pressed event) {
         int keyCode = event.getCode();
         switch (keyCode) {
             case 82: // Reset

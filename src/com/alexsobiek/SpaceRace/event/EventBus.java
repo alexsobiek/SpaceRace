@@ -1,6 +1,5 @@
 package com.alexsobiek.SpaceRace.event;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ public class EventBus {
             if (method.isAnnotationPresent(EventHandler.class)) {
                 if (method.getParameterCount() == 1) {
                     Class<?> param = method.getParameters()[0].getType();
-                    if (param.getSuperclass().getSimpleName().equals("Event")) {
+                    if (param.getSuperclass().equals(Event.class) || param.getSuperclass().getSuperclass().equals(Event.class)) {
                         List<ListenerInfo> infos = new ArrayList<>();
                         infos.add(new ListenerInfo(listener, method));
                         listeners.put(listener, infos);
