@@ -1,6 +1,8 @@
 package com.alexsobiek.SpaceRace;
 
+import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.listeners.KeyListener;
+import com.alexsobiek.SpaceRace.listeners.PlayerMove;
 
 public class GameManager {
 
@@ -10,6 +12,7 @@ public class GameManager {
     public static void start() {
         running = true;
         subscribe(new KeyListener());
+        subscribe(new PlayerMove());
         TickManager.startTicking();
     }
 
@@ -27,6 +30,8 @@ public class GameManager {
 
     public static void restart() {
         Window.reset();
+        Window.player1.reset();
+        Window.player2.reset();
         if (!running) {
             TickManager.startTicking();
             running = true;
@@ -36,7 +41,8 @@ public class GameManager {
     public static boolean isRunning() {
         return running;
     }
-    private static void subscribe(com.alexsobiek.SpaceRace.event.Listener listener) {
+
+    private static void subscribe(Listener listener) {
         SpaceRace.EVENT_BUS.subscribe(listener);
     }
 }

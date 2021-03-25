@@ -17,6 +17,8 @@ public class Player implements IEntity {
     private MoveDirection direction;
     private final UUID id;
 
+    private int score;
+
     public Player(int x, int y, int speed) {
         this.x = x;
         this.y = y;
@@ -44,12 +46,25 @@ public class Player implements IEntity {
     }
 
     public boolean isOutOfBounds() {
-        return (y > Window.winHeight && direction == IEntity.MoveDirection.DOWN || y < 0 && direction == IEntity.MoveDirection.UP);
+        return (y > Window.winHeight || y <= 0);
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void addScore() {
+        score++;
+    }
+
+    public void resetPos() {
+        x = originalPos[0];
+        y = originalPos[1];
     }
 
     public void reset() {
-        x = originalPos[0];
-        y = originalPos[1];
+        resetPos();
+        score = 0;
     }
 
     @Override

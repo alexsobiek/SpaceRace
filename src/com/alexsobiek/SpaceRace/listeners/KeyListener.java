@@ -18,11 +18,11 @@ public class KeyListener implements Listener {
     public void keyReleased(KeyInputEvent event) {
         int keyCode = event.getCode();
         switch (keyCode) {
-            case 82:
+            case 82: // Reset
                 GameManager.restart();
                 Timer.start(15);
                 break;
-            case 80:
+            case 80: // Pause
                 if (paused) {
                     TickManager.startTicking();
                     Window.frame.setBackground(Color.BLACK);
@@ -49,4 +49,5 @@ public class KeyListener implements Listener {
                 break;
         }
     }
+
 }
