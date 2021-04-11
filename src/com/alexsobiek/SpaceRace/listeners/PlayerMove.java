@@ -10,7 +10,6 @@ public class PlayerMove implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-
         if (GameManager.isRunning()) {
             Player player = event.getPlayer();
             if (player.isOutOfBounds()) {
@@ -23,6 +22,5 @@ public class PlayerMove implements Listener {
         } else {
             event.setCancelled(true);
         }
-
     }
 }

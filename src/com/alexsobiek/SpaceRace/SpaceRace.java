@@ -15,7 +15,7 @@ public class SpaceRace {
         EVENT_BUS = new EventBus();
         new KeyInput();
         new Timer();
-        System.out.println("Starting");
+        System.out.println("Starting Space Race");
         GameManager.start();
         new Window();
     }
