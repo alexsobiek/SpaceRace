@@ -5,15 +5,17 @@ import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.event.events.PlayerMoveEvent;
 
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.util.Random;
 import java.util.UUID;
 
 public class Player implements IEntity {
-    private int[] originalPos = new int[2];
+    private final int originalX;
+    private final int originalY;
     private int x;
     private int y;
-    private int speed;
+    private final int speed;
     private MoveDirection direction;
     private final UUID id;
 
@@ -23,8 +25,8 @@ public class Player implements IEntity {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        originalPos[0] = x;
-        originalPos[1] = y;
+        originalX = x;
+        originalY = y;
 
         id = UUID.randomUUID();
     }
@@ -58,8 +60,8 @@ public class Player implements IEntity {
     }
 
     public void resetPos() {
-        x = originalPos[0];
-        y = originalPos[1];
+        x = originalX;
+        y = originalY;
     }
 
     public void reset() {
