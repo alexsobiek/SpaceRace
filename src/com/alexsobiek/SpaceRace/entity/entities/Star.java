@@ -24,7 +24,8 @@ public class Star implements IEntity {
     public Star() {
         id = UUID.randomUUID();
         try {
-            matrix = new Matrix("Player.mtx");
+
+            matrix = new Matrix(Path.of("models","Player.mtx").toString());
         } catch(FileNotFoundException e) {
             throw new Error(e);
         }

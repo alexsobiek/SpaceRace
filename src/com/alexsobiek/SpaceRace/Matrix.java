@@ -1,9 +1,8 @@
 package com.alexsobiek.SpaceRace;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,7 +27,6 @@ public class Matrix {
      * parsed from provided file
      * @return int[][]
      */
-    @Getter
     public int[][] get() {
         return parse(input);
     }
