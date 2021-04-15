@@ -8,17 +8,24 @@ import java.awt.*;
 
 public class Timer implements Listener {
 
-    // Timer
-    private static final int timerStroke = 10;
+    private static final int timerStroke = 10; // Pixels to stroke the timer line
     private static double timerHeight;
     private static int maxTimerHeight;
 
     private static double pixelsPerTick;
 
+    /**
+     * Constructor:
+     * Subscribes the Timer to the EventBus so we can listen for tick events
+     */
     public Timer() {
         SpaceRace.EVENT_BUS.subscribe(this);
     }
 
+    /**
+     * Starts the game timer
+     * @param time Amount of time the game should have
+     */
     public static void start(int time) {
         int totalTicks = time * TickManager.TPS;
         timerHeight = 0;
@@ -32,6 +39,10 @@ public class Timer implements Listener {
         if (maxTimerHeight > 0 && timerHeight >= maxTimerHeight) GameManager.end();
     }
 
+    /**
+     * Draws the timer line on the screen
+     * @param g2d Graphics2D object
+     */
     public static void drawTimer(Graphics2D g2d) {
         g2d.setColor(Color.WHITE);
         g2d.setStroke(new BasicStroke(timerStroke));

@@ -14,6 +14,10 @@ import java.awt.*;
 public class KeyListener implements Listener {
     boolean paused = false;
 
+    /**
+     * Called when a key press event is invoked
+     * @param event KeyInputEvent.Pressed event
+     */
     @EventHandler
     public void keyReleased(KeyInputEvent.Pressed event) {
         int keyCode = event.getCode();

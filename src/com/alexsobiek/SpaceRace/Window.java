@@ -1,5 +1,6 @@
 package com.alexsobiek.SpaceRace;
 
+import com.alexsobiek.SpaceRace.entity.Location;
 import com.alexsobiek.SpaceRace.entity.entities.Player;
 import com.alexsobiek.SpaceRace.entity.entities.Star;
 import com.alexsobiek.SpaceRace.event.EventHandler;
@@ -26,6 +27,10 @@ public class Window extends JPanel implements Listener {
     public static Player player1;
     public static Player player2;
 
+    /**
+     * Constructor:
+     * Creates a new window and begins painting
+     */
     public Window() {
         SpaceRace.EVENT_BUS.subscribe(this);
         frame = new JFrame("Space Race");
@@ -39,6 +44,9 @@ public class Window extends JPanel implements Listener {
         Timer.start(30);
     }
 
+    /**
+     * Resets the window
+     */
     public static void reset() {
         stars.clear();
         spawnStars();
@@ -46,11 +54,17 @@ public class Window extends JPanel implements Listener {
         frame.repaint();
     }
 
+    /**
+     * Spawns stars to be painted in the window
+     */
     private static void spawnStars() {
         for (int i = 0; i <= maxStars; i++) stars.add(new Star());
     }
 
-    private static void spawnPlayers() {
+    /**
+     * Spawns players to be painted in the window
+     */
+    private void spawnPlayers() {
         player1 = new Player((halfX - 100), (winHeight - 100), 10);
         player2 = new Player((halfX + 100), (winHeight - 100), 10);
     }
@@ -63,6 +77,9 @@ public class Window extends JPanel implements Listener {
         }
     }
 
+    /**
+     * Loops through stars and moves them
+     */
     public void moveStars() {
         for (Star star : stars) {
             if (checkStar(star)) return;
@@ -70,6 +87,11 @@ public class Window extends JPanel implements Listener {
         }
     }
 
+    /**
+     * Checks if a star is out of bounds and if so, resets them
+     * @param star Star instance to check
+     * @return boolean
+     */
     private boolean checkStar(Star star) {
         if (star.isOutOfBounds()) {
             star.reset();
@@ -87,7 +109,8 @@ public class Window extends JPanel implements Listener {
 
         if (stars.size() > 0) {
             stars.forEach(star -> {
-                g.fillOval(star.getX(), star.getY(), 6, 6);
+                Location loc = star.getLocation();
+                g.fillOval(loc.getX(), loc.getY(), 6, 6);
             });
         }
         drawPlayer(g2d, player1);
@@ -95,12 +118,22 @@ public class Window extends JPanel implements Listener {
         drawPlayerScores(g2d);
     }
 
+    /**
+     * Creates a player model to paint
+     * @param g2d Graphics2D to use for painting
+     * @param player Player instance to paint
+     */
     private void drawPlayer(Graphics2D g2d, Player player) {
         if (player != null) {
-            g2d.fillOval(player.getX(), player.getY(), 40, 40);
+            Location loc = player.getLocation();
+            g2d.fillOval(loc.getX(), loc.getY(), 40, 40);
         }
     }
 
+    /**
+     * Paints the text used to display player scores
+     * @param g2d Graphics2D to use for painting
+     */
     private void drawPlayerScores(Graphics2D g2d) {
         // Setup our larger font
         Font baseFont = g2d.getFont();
@@ -119,6 +152,11 @@ public class Window extends JPanel implements Listener {
         g2d.setFont(baseFont);
     }
 
+    /**
+     * Utility method for centering and painting strings
+     * @param g2d Graphics2D to use for painting
+     * @param string String to center and paint
+     */
     private void drawCenteredString(Graphics2D g2d, String string) {
         int width = (int) g2d.getFontMetrics().getStringBounds(string, g2d).getWidth();
         int height = (int) g2d.getFontMetrics().getStringBounds(string, g2d).getHeight();
