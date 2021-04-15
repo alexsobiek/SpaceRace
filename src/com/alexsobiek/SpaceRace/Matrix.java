@@ -2,7 +2,6 @@ package com.alexsobiek.SpaceRace;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,9 +12,8 @@ public class Matrix {
 
     /**
      * Constructor:
-     * Parses and returns matrix stored in file
+     * Parses and returns matrix (2D int array) stored in file
      * @param fileName Name of file to parse
-     * @return int[][] Returns parsed matrix
      * @throws FileNotFoundException Throws error if the provided file does not exist
      */
     public Matrix(String fileName) throws FileNotFoundException {
