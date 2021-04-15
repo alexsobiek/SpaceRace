@@ -10,6 +10,7 @@ import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Window extends JPanel implements Listener {
@@ -22,7 +23,7 @@ public class Window extends JPanel implements Listener {
     public static final int halfX = Window.winWidth / 2;
     public static final int maxStars = 70;
 
-    private static final List<Star> stars = new ArrayList<>();
+    private static final List<Star> stars = Collections.synchronizedList(new ArrayList<>());
 
     public static Player player1;
     public static Player player2;
@@ -128,6 +129,10 @@ public class Window extends JPanel implements Listener {
             Location loc = player.getLocation();
             g2d.fillOval(loc.getX(), loc.getY(), 40, 40);
         }
+    }
+
+    private void drawPlayerMatrix() {
+
     }
 
     /**

@@ -7,6 +7,7 @@ public interface IEntity {
     Random rand = new Random();
     void move(MoveDirection direction);
     void delete();
+
     enum MoveDirection {
         LEFT,
         RIGHT,

@@ -4,9 +4,9 @@ import com.alexsobiek.SpaceRace.Matrix;
 import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.entity.Location;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.UUID;
 
 public class Star implements IEntity {
@@ -39,7 +39,6 @@ public class Star implements IEntity {
      * Gets the star's UUID
      * @return UUID
      */
-    @Getter
     public UUID getId() {
         return id;
     }
@@ -48,7 +47,6 @@ public class Star implements IEntity {
      * Gets the star's MoveDirection Enum
      * @return MoveDirection
      */
-    @Getter
     public MoveDirection getDirection() {
         return direction;
     }
@@ -57,7 +55,6 @@ public class Star implements IEntity {
      * Gets the star's location
      * @return Location
      */
-    @Getter
     public Location getLocation() {
         return location;
     }

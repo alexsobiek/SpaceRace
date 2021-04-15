@@ -5,7 +5,6 @@ import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.entity.Location;
 import com.alexsobiek.SpaceRace.event.events.PlayerMoveEvent;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 import java.util.UUID;
 
@@ -34,7 +33,6 @@ public class Player implements IEntity {
      * Get the player's UUID
      * @return UUID
      */
-    @Getter
     public UUID getId() {
         return id;
     }
@@ -43,7 +41,6 @@ public class Player implements IEntity {
      * Used for getting the MoveDirection of the player
      * @return MoveDirection
      */
-    @Getter
     public MoveDirection getDirection() {
         return direction;
     }
@@ -53,7 +50,6 @@ public class Player implements IEntity {
      * Gets the star's location
      * @return Location
      */
-    @Getter
     public Location getLocation() {
         return location;
     }
@@ -70,7 +66,6 @@ public class Player implements IEntity {
      * Returns player's score
      * @return int
      */
-    @Getter
     public int getScore() {
         return score;
     }

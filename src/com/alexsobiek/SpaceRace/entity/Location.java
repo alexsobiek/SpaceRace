@@ -1,8 +1,5 @@
 package com.alexsobiek.SpaceRace.entity;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
-
 public class Location {
 
     private int x;
@@ -30,7 +27,6 @@ public class Location {
      *
      * @param x X coordinate
      */
-    @Setter
     public void setX(int x) {
         this.x = x;
     }
@@ -40,7 +36,6 @@ public class Location {
      *
      * @param y Y coordinate
      */
-    @Setter
     public void setY(int y) {
         this.y = y;
     }
@@ -58,7 +53,6 @@ public class Location {
      *
      * @return int
      */
-    @Getter(name="X Coordinate")
     public int getX() {
         return x;
     }
@@ -77,7 +71,6 @@ public class Location {
      *
      * @return int
      */
-    @Getter(name="X Origin Coordinate")
     public int getXOrigin() {
         return xOrigin;
     }
@@ -87,7 +80,6 @@ public class Location {
      *
      * @return int
      */
-    @Getter(name="Y Origin Coordinate")
     public int getYOrigin() {
         return yOrigin;
     }
