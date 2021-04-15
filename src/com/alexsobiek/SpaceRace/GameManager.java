@@ -14,8 +14,8 @@ public class GameManager {
      */
     public static void start() {
         running = true;
-        subscribe(new KeyListener());
-        subscribe(new PlayerMove());
+        subscribe(new KeyListener()); // Subscribes KeyListener to the EventBus
+        subscribe(new PlayerMove()); // Subscribes PlayerMove to the EventBus
         TickManager.startTicking();
     }
 
@@ -23,8 +23,8 @@ public class GameManager {
      * Ends the game
      */
     public static void end() { // Game over
-        Window.player1.resetPos();
-        Window.player2.resetPos();
+        Window.player1.getLocation().reset();
+        Window.player2.getLocation().reset();
         TickManager.stopTicking();
         running = false;
     }

@@ -3,16 +3,14 @@ package com.alexsobiek.SpaceRace.entity.entities;
 import com.alexsobiek.SpaceRace.SpaceRace;
 import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
+import com.alexsobiek.SpaceRace.entity.Location;
 import com.alexsobiek.SpaceRace.event.events.PlayerMoveEvent;
 import jdk.nashorn.internal.objects.annotations.Getter;
 
 import java.util.UUID;
 
 public class Player implements IEntity {
-    private final int originalX;
-    private final int originalY;
-    private int x;
-    private int y;
+    private final Location location;
     private final int speed;
     private MoveDirection direction;
     private final UUID id;
@@ -28,9 +26,7 @@ public class Player implements IEntity {
      */
     public Player(int x, int y, int speed) {
         this.speed = speed;
-        originalX = x;
-        originalY = y;
-
+        location = new Location(x, y);
         id = UUID.randomUUID();
     }
 
@@ -53,8 +49,13 @@ public class Player implements IEntity {
     }
 
 
-    public int getY() {
-        return y;
+    /**
+     * Gets the star's location
+     * @return Location
+     */
+    @Getter
+    public Location getLocation() {
+        return location;
     }
 
     /**
@@ -62,7 +63,7 @@ public class Player implements IEntity {
      * @return boolean
      */
     public boolean isOutOfBounds() {
-        return (y > Window.winHeight || y <= 0);
+        return (location.getY() > Window.winHeight || location.getY() <= 0);
     }
 
     /**
@@ -85,7 +86,7 @@ public class Player implements IEntity {
      * Resets a player's score and position
      */
     public void reset() {
-        resetPos();
+        location.reset();
         score = 0;
     }
 
@@ -100,10 +101,10 @@ public class Player implements IEntity {
         if (moveEvent.isCancelled()) return;
         switch (direction) {
             case UP:
-                y -= speed;
+                location.setY(location.getY() - speed);
                 break;
             case DOWN:
-                y += speed;
+                location.setY(location.getY() + speed);
                 break;
         }
 

@@ -23,11 +23,12 @@ public class Star implements IEntity {
      */
     public Star() {
         id = UUID.randomUUID();
-        createStar();
-    }
-
-
-    private void createStar() {
+        try {
+            matrix = new Matrix("Player.mtx");
+        } catch(FileNotFoundException e) {
+            throw new Error(e);
+        }
+        MoveDirection[] directions = {MoveDirection.LEFT, MoveDirection.RIGHT};
         direction = directions[rand.nextInt(directions.length)];
         offset = rand.nextInt(2000);
         speed = rand.nextInt(3);
@@ -51,11 +52,14 @@ public class Star implements IEntity {
     public MoveDirection getDirection() {
         return direction;
     }
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
+
+    /**
+     * Gets the star's location
+     * @return Location
+     */
+    @Getter
+    public Location getLocation() {
+        return location;
     }
 
     /**
@@ -63,7 +67,7 @@ public class Star implements IEntity {
      * @return boolean
      */
     public boolean isOutOfBounds() {
-        return (x > Window.winWidth && direction == IEntity.MoveDirection.RIGHT || x < 0 && direction == IEntity.MoveDirection.LEFT);
+        return (location.getX() > Window.winWidth && direction == IEntity.MoveDirection.RIGHT || location.getY() < 0 && direction == IEntity.MoveDirection.LEFT);
     }
 
     /**
@@ -82,10 +86,10 @@ public class Star implements IEntity {
     public void move(MoveDirection direction) {
         switch (direction) {
             case LEFT:
-                x -= speed;
+                location.setX(location.getX() - speed);
                 break;
             case RIGHT:
-                x += speed;
+                location.setX(location.getX() + speed);
                 break;
         }
     }
