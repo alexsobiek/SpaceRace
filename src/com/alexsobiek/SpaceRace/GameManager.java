@@ -9,6 +9,9 @@ public class GameManager {
     private static boolean running = false;
     private static boolean paused = false;
 
+    /**
+     * Starts the game
+     */
     public static void start() {
         running = true;
         subscribe(new KeyListener());
@@ -16,6 +19,9 @@ public class GameManager {
         TickManager.startTicking();
     }
 
+    /**
+     * Ends the game
+     */
     public static void end() { // Game over
         Window.player1.resetPos();
         Window.player2.resetPos();
@@ -23,6 +29,9 @@ public class GameManager {
         running = false;
     }
 
+    /**
+     * Toggles pause/unpause
+     */
     public static void togglePause() {
         if (!paused) {
             TickManager.stopTicking();
@@ -30,6 +39,9 @@ public class GameManager {
         } else TickManager.startTicking();
     }
 
+    /**
+     * Restarts the game
+     */
     public static void restart() {
         Window.reset();
         Window.player1.reset();
@@ -41,10 +53,18 @@ public class GameManager {
         System.out.println("Game Reset");
     }
 
+    /**
+     * Checks whether or not the game is active
+     * @return boolean
+     */
     public static boolean isRunning() {
         return running;
     }
 
+    /**
+     * Utility method to subscribe listeners to the EventBus
+     * @param listener Class to subscribe
+     */
     private static void subscribe(Listener listener) {
         SpaceRace.EVENT_BUS.subscribe(listener);
     }
