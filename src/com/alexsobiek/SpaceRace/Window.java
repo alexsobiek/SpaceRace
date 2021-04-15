@@ -10,7 +10,6 @@ import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Window extends JPanel implements Listener {
