@@ -1,0 +1,7 @@
+com.alexsobiek.SpaceRace
+com.alexsobiek.SpaceRace.entity
+com.alexsobiek.SpaceRace.entity.entities
+com.alexsobiek.SpaceRace.event
+com.alexsobiek.SpaceRace.event.events
+com.alexsobiek.SpaceRace.event.listener
+com.alexsobiek.SpaceRace.listeners
