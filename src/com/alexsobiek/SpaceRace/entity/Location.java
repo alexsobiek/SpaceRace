@@ -41,7 +41,7 @@ public class Location {
     }
 
     /**
-     * Reset's the location to its origin
+     * Resets the location to its origin
      */
     public void reset() {
         x = xOrigin;
