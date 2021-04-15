@@ -1,21 +1,19 @@
 package com.alexsobiek.SpaceRace.entity.entities;
 
-import com.alexsobiek.SpaceRace.Matrix;
 import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.entity.Location;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
+import java.util.Random;
 import java.util.UUID;
 
 public class Star implements IEntity {
     private Location location;
-    private Matrix matrix;
     private final int offset;
     private final int speed;
     private final MoveDirection direction;
     private final UUID id;
+    private final Random rand = new Random();
 
     /**
      * Constructor:
@@ -23,12 +21,6 @@ public class Star implements IEntity {
      */
     public Star() {
         id = UUID.randomUUID();
-        try {
-
-            matrix = new Matrix(Path.of("models","Player.mtx").toString());
-        } catch(FileNotFoundException e) {
-            throw new Error(e);
-        }
         MoveDirection[] directions = {MoveDirection.LEFT, MoveDirection.RIGHT};
         direction = directions[rand.nextInt(directions.length)];
         offset = rand.nextInt(2000);
