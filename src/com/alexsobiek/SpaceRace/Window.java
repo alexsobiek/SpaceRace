@@ -23,7 +23,7 @@ public class Window extends JPanel implements Listener {
     public static final int halfX = Window.winWidth / 2;
     public static final int maxStars = 70;
 
-    private static final List<Star> stars = Collections.synchronizedList(new ArrayList<>());
+    private static final List<Star> stars = new ArrayList<>();
 
     public static Player player1;
     public static Player player2;
