@@ -23,6 +23,7 @@ public class PlayerMove implements Listener {
                     player.addScore();
                     System.out.println("Player with ID: " + player.getId() + " scored. They now have a score of: " + player.getScore());
                 }
+                player.getModel().reset();
                 loc.reset();
             }
         } else {
