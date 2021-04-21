@@ -4,7 +4,8 @@ import com.alexsobiek.SpaceRace.GameManager;
 import com.alexsobiek.SpaceRace.TickManager;
 import com.alexsobiek.SpaceRace.Timer;
 import com.alexsobiek.SpaceRace.Window;
-import com.alexsobiek.SpaceRace.entity.IEntity;
+import com.alexsobiek.SpaceRace.entity.IEntity.MoveDirection;
+import com.alexsobiek.SpaceRace.entity.entities.Player;
 import com.alexsobiek.SpaceRace.event.EventHandler;
 import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.event.events.KeyInputEvent;
@@ -42,18 +43,22 @@ public class KeyListener implements Listener {
                 }
                 break;
             case 87: // Player 1 Up
-                Window.player1.move(IEntity.MoveDirection.UP);
+                movePlayer(Window.player1, MoveDirection.UP);
                 break;
             case 83: // Player 1 Down
-                Window.player1.move(IEntity.MoveDirection.DOWN);
+                movePlayer(Window.player1, MoveDirection.DOWN);
                 break;
             case 38: // Player 2 Up
-                Window.player2.move(IEntity.MoveDirection.UP);
+                movePlayer(Window.player2, MoveDirection.UP);
                 break;
             case 40: // Player 2 Down
-                Window.player2.move(IEntity.MoveDirection.DOWN);
+                movePlayer(Window.player2, MoveDirection.DOWN);
                 break;
         }
+    }
+
+    private void movePlayer(Player player, MoveDirection direction) {
+        if (GameManager.isRunning() && !GameManager.isPaused()) player.move(direction);
     }
 
 }
