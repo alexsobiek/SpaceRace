@@ -1,18 +1,18 @@
 package com.alexsobiek.SpaceRace.entity.entities;
 
-import com.alexsobiek.SpaceRace.Matrix;
 import com.alexsobiek.SpaceRace.SpaceRace;
 import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.entity.Location;
 import com.alexsobiek.SpaceRace.event.events.PlayerMoveEvent;
+import com.alexsobiek.SpaceRace.graphics.PlayerModel;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.UUID;
 
 public class Player implements IEntity {
-    private final Matrix matrix;
+    private final PlayerModel playerModel;
     private final Location location;
     private final int speed;
     private MoveDirection direction;
@@ -31,11 +31,7 @@ public class Player implements IEntity {
         this.speed = speed;
         location = new Location(x, y);
         id = UUID.randomUUID();
-        try {
-            matrix = new Matrix("models/Player.mtx");
-        } catch(FileNotFoundException e) {
-            throw new Error(e);
-        }
+        playerModel = new PlayerModel(x, y);
     }
 
     /**
@@ -86,12 +82,8 @@ public class Player implements IEntity {
         score++;
     }
 
-    /**
-     * Gets the player model matrix
-     * @return Matrix
-     */
-    public Matrix getMatrix() {
-        return matrix;
+    public PlayerModel getModel() {
+        return playerModel;
     }
 
     /**
@@ -111,14 +103,22 @@ public class Player implements IEntity {
         PlayerMoveEvent moveEvent = new PlayerMoveEvent(this);
         SpaceRace.EVENT_BUS.post(moveEvent);
         if (moveEvent.isCancelled()) return;
+        int y;
         switch (direction) {
             case UP:
-                location.setY(location.getY() - speed);
+                y = location.getY() - speed;
+                location.setY(y);
+                playerModel.getPolygon().translate(0, y);
                 break;
             case DOWN:
-                location.setY(location.getY() + speed);
+                y = location.getY() + speed;
+                location.setY(y);
+                playerModel.getPolygon().translate(0, y);
                 break;
         }
+
+
+
     }
 
     /**
