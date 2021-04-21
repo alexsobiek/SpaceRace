@@ -1,8 +1,9 @@
 package com.alexsobiek.SpaceRace.graphics;
 
+import com.alexsobiek.SpaceRace.GameManager;
+import com.alexsobiek.SpaceRace.Window;
+
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class PlayerModel {
 
@@ -10,7 +11,6 @@ public class PlayerModel {
 
     int[] xCoords = new int[22];
     int[] yCoords = new int[22];
-
 
     public PlayerModel(int xTop, int yTop) {
 
@@ -23,7 +23,7 @@ public class PlayerModel {
         int secondOffsetWidth = 10;
         int secondOffsetHeight = 12;
 
-        int neckHeight = 10;
+        int neckHeight = 12;
 
         xCoords[0] = xTop;
         yCoords[0] = yTop;
@@ -51,8 +51,7 @@ public class PlayerModel {
 
         makeThruster(7); // pos 8 - 10
 
-
-        int thrusterOffset = xTop - xCoords[7] + 3; // Calculate distance between thrusters
+        int thrusterOffset = xTop - xCoords[7]; // Calculate distance between thrusters
         xCoords[11] = xCoords[10] + thrusterOffset;
         yCoords[11] = yCoords[10];
 
@@ -79,11 +78,7 @@ public class PlayerModel {
         xCoords[21] = xTop;
         yCoords[21] = yTop;
 
-        System.out.println("X: " + Arrays.toString(xCoords));
-        System.out.println("Y:" + Arrays.toString(yCoords));
-
         model = new Polygon(xCoords, yCoords, xCoords.length);
-
     }
 
     /**
@@ -91,8 +86,8 @@ public class PlayerModel {
      * @param pos Starting position for thruster
      */
     private void makeThruster(int pos) {
-        int thrusterHeight = 6;
-        int thrusterWidth = 4;
+        int thrusterHeight = 8;
+        int thrusterWidth = 6;
 
         xCoords[pos+1] = xCoords[pos]; // First thruster
         yCoords[pos+1] = yCoords[pos] + thrusterHeight; // down
@@ -105,13 +100,25 @@ public class PlayerModel {
     }
 
     public void draw(Graphics2D g2d) {
-        g2d.setStroke(new BasicStroke(2));
+        g2d.setStroke(new BasicStroke(3));
+        if (GameManager.isPaused()) {
+            System.out.println("PAUSED");
+            g2d.setColor(Window.pauseColor);
+        }
+        else g2d.setColor(Color.BLACK);
+
+        g2d.fillPolygon(model);
+        g2d.setColor(Color.WHITE);
         g2d.drawPolygon(model);
         g2d.setStroke(new BasicStroke(1));
     }
 
     public Polygon getPolygon() {
         return model;
+    }
+
+    public void reset() {
+        model = new Polygon(xCoords, yCoords, xCoords.length);
     }
 
 }

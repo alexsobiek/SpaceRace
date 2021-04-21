@@ -9,6 +9,8 @@ import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +20,20 @@ public class Window extends JPanel implements Listener {
 
     public static final int winHeight = 800;
     public static final int winWidth = 1200;
-    public static final int halfY = Window.winHeight / 2;
-    public static final int halfX = Window.winWidth / 2;
+    public static final int halfY = winHeight / 2;
+    public static final int halfX = winWidth / 2;
     public static final int maxStars = 70;
+
+    private static final int time = 30;
 
     private static final List<Star> stars = new ArrayList<>();
 
     public static Player player1;
     public static Player player2;
+
+    public static final Color pauseColor = new Color(15, 15, 15);
+
+    private final Font gameFont;
 
     /**
      * Constructor:
@@ -39,9 +47,16 @@ public class Window extends JPanel implements Listener {
         frame.setBackground(Color.BLACK);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        try {
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, Path.of("fonts", "FFFFORWA.TTF").toFile()).deriveFont(Font.PLAIN, 16F);
+        } catch (IOException | FontFormatException e) {
+            throw new Error(e);
+        }
+
         spawnStars();
         spawnPlayers();
-        Timer.start(30);
+        Timer.start(time);
     }
 
     /**
@@ -50,7 +65,7 @@ public class Window extends JPanel implements Listener {
     public static void reset() {
         stars.clear();
         spawnStars();
-        Timer.start(10);
+        Timer.start(time);
         frame.repaint();
     }
 
@@ -102,6 +117,7 @@ public class Window extends JPanel implements Listener {
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setFont(gameFont);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.WHITE);
         if (GameManager.isRunning()) Timer.drawTimer(g2d);
@@ -124,14 +140,7 @@ public class Window extends JPanel implements Listener {
      * @param player Player instance to paint
      */
     private void drawPlayer(Graphics2D g2d, Player player) {
-        if (player != null) {
-            Location loc = player.getLocation();
-            g2d.fillOval(loc.getX(), loc.getY(), 40, 40);
-        }
-    }
-
-    private void drawPlayerMatrix() {
-
+        if (player != null) player.getModel().draw(g2d);
     }
 
     /**
@@ -139,11 +148,8 @@ public class Window extends JPanel implements Listener {
      * @param g2d Graphics2D to use for painting
      */
     private void drawPlayerScores(Graphics2D g2d) {
-        // Setup our larger font
-        Font baseFont = g2d.getFont();
-        Font newFont = baseFont.deriveFont(Font.PLAIN, 58);
-        g2d.setFont(newFont);
-
+        if (gameFont == null) return;
+        g2d.setFont(gameFont.deriveFont(Font.PLAIN, 58F));
         // Draw player scores
         if (player1 != null) {
             g2d.drawString("" + player1.getScore(), halfX - 175, winHeight - 50);
@@ -151,9 +157,7 @@ public class Window extends JPanel implements Listener {
         if (player2 != null) {
             g2d.drawString("" + player2.getScore(), halfX + 175, winHeight - 50);
         }
-
-        // reset our font
-        g2d.setFont(baseFont);
+        g2d.setFont(gameFont);
     }
 
     /**
