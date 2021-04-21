@@ -19,24 +19,20 @@ public class GameManager {
         TickManager.startTicking();
     }
 
+    private static void resetPlayers() {
+        Window.player1.getLocation().reset();
+        Window.player2.getLocation().reset();
+        Window.player1.getModel().reset();
+        Window.player2.getModel().reset();
+    }
+
     /**
      * Ends the game
      */
     public static void end() { // Game over
-        Window.player1.getLocation().reset();
-        Window.player2.getLocation().reset();
+        resetPlayers();
         TickManager.stopTicking();
         running = false;
-    }
-
-    /**
-     * Toggles pause/unpause
-     */
-    public static void togglePause() {
-        if (!paused) {
-            TickManager.stopTicking();
-            paused = true;
-        } else TickManager.startTicking();
     }
 
     /**
@@ -44,8 +40,7 @@ public class GameManager {
      */
     public static void restart() {
         Window.reset();
-        Window.player1.reset();
-        Window.player2.reset();
+        resetPlayers();
         if (!running) {
             TickManager.startTicking();
             running = true;
@@ -60,6 +55,8 @@ public class GameManager {
     public static boolean isRunning() {
         return running;
     }
+
+    public static boolean isPaused() { return paused; }
 
     /**
      * Utility method to subscribe listeners to the EventBus
