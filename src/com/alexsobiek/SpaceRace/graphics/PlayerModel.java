@@ -104,64 +104,6 @@ public class PlayerModel {
         yCoords[pos+3] = yCoords[pos+2] - thrusterHeight; // up
     }
 
-    /*
-    public PlayerModel(int xCenter, int yCenter, int speed) {
-
-        // xCenter = 500
-        // yCenter = 700
-
-        this.speed = speed;
-
-        int thrusterHeight = 10;
-        int thrusterWidth = 5;
-
-        // Draw half the player model
-
-        // Left thruster
-        xCoords[0] = xCenter;
-        yCoords[0] = yCenter + 5;
-
-        xCoords[1] = xCenter - 10;
-        yCoords[1] = yCoords[0];
-
-        xCoords[2] = xCoords[1];
-        yCoords[2] = yCoords[1] + 10;
-
-        xCoords[3] = xCoords[2] - 5;
-        yCoords[3] = yCoords[2];
-
-        xCoords[4] = xCoords[3];
-        yCoords[4] = yCoords[3] - 10;
-
-        xCoords[5] = xCoords[4] - 2;
-        yCoords[5] = yCoords[4];
-
-        xCoords[6] = xCenter - 10;
-        yCoords[6] = yCoords[5] - 10;
-
-        xCoords[7] = xCoords[6];
-        yCoords[7] = yCoords[6] - 8;
-
-        xCoords[8] = xCoords[7] - 5;
-        yCoords[8] = yCoords[7];
-
-        xCoords[9] = xCenter;
-        yCoords[9] = yCoords[8] - 8;
-
-        xCoords[10] = xCenter + 10;
-        yCoords[10] = yCoords[8];
-
-        xCoords[11] = xCoords[10] - 5;
-        yCoords[11] = yCoords[10];
-
-        xCoords[12] = xCoords[11];
-        yCoords[12] = yCoords[11] + 8;
-
-        model = new Polygon(xCoords, yCoords, xCoords.length);
-    }
-
-     */
-
     public void draw(Graphics2D g2d) {
         g2d.setStroke(new BasicStroke(2));
         g2d.drawPolygon(model);
