@@ -20,10 +20,8 @@ public class GameManager {
     }
 
     private static void resetPlayers() {
-        Window.player1.getLocation().reset();
-        Window.player2.getLocation().reset();
-        Window.player1.getModel().reset();
-        Window.player2.getModel().reset();
+        Window.player1.reset();
+        Window.player2.reset();
     }
 
     /**

@@ -44,6 +44,10 @@ public class EntityMove implements Listener {
         }
     }
 
+    /**
+     * Resets the entity's location
+     * @param entity Entity to reset
+     */
     private void resetEntity(IEntity entity) {
         entity.getLocation().reset();
         if (entity instanceof Player) ((Player) entity).getModel().reset();

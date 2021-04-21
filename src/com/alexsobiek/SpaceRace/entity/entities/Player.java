@@ -87,6 +87,7 @@ public class Player implements IEntity {
      */
     public void reset() {
         location.reset();
+        playerModel.reset();
         score = 0;
     }
 
