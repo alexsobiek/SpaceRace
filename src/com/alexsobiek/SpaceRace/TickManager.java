@@ -1,4 +1,5 @@
 package com.alexsobiek.SpaceRace;
+
 import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
 
 import java.util.concurrent.Executors;

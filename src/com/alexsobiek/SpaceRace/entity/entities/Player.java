@@ -32,7 +32,7 @@ public class Player implements IEntity {
         location = new Location(x, y);
         id = UUID.randomUUID();
         try {
-            matrix = new Matrix(Path.of("models","Player.mtx").toString());
+            matrix = new Matrix("models/Player.mtx");
         } catch(FileNotFoundException e) {
             throw new Error(e);
         }
