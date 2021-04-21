@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.alexsobiek.SpaceRace"},{"l":"com.alexsobiek.SpaceRace.entity"},{"l":"com.alexsobiek.SpaceRace.entity.entities"},{"l":"com.alexsobiek.SpaceRace.event"},{"l":"com.alexsobiek.SpaceRace.event.events"},{"l":"com.alexsobiek.SpaceRace.event.listener"},{"l":"com.alexsobiek.SpaceRace.listeners"}]
