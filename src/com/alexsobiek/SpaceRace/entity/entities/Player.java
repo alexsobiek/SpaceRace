@@ -7,8 +7,6 @@ import com.alexsobiek.SpaceRace.entity.Location;
 import com.alexsobiek.SpaceRace.event.events.PlayerMoveEvent;
 import com.alexsobiek.SpaceRace.graphics.PlayerModel;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
 import java.util.UUID;
 
 public class Player implements IEntity {
@@ -108,17 +106,14 @@ public class Player implements IEntity {
             case UP:
                 y = location.getY() - speed;
                 location.setY(y);
-                playerModel.getPolygon().translate(0, y);
+                playerModel.getPolygon().translate(0, -speed);
                 break;
             case DOWN:
                 y = location.getY() + speed;
                 location.setY(y);
-                playerModel.getPolygon().translate(0, y);
+                playerModel.getPolygon().translate(0, speed);
                 break;
         }
-
-
-
     }
 
     /**
