@@ -1,7 +1,6 @@
 package com.alexsobiek.SpaceRace.graphics;
 
 import com.alexsobiek.SpaceRace.GameManager;
-import com.alexsobiek.SpaceRace.Window;
 
 import java.awt.*;
 
@@ -102,10 +101,10 @@ public class PlayerModel {
     public void draw(Graphics2D g2d) {
         g2d.setStroke(new BasicStroke(3));
         if (GameManager.isPaused()) g2d.setColor(Window.pauseColor);
-        else g2d.setColor(Color.BLACK);
+        else g2d.setColor(Window.backgroundColor);
 
         g2d.fillPolygon(model);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Window.foregroundColor);
         g2d.drawPolygon(model);
         g2d.setStroke(new BasicStroke(1));
     }

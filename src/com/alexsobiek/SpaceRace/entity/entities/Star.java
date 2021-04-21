@@ -1,8 +1,8 @@
 package com.alexsobiek.SpaceRace.entity.entities;
 
-import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.entity.Location;
+import com.alexsobiek.SpaceRace.graphics.Window;
 
 import java.util.Random;
 import java.util.UUID;

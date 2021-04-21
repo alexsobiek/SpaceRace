@@ -1,7 +1,7 @@
 package com.alexsobiek.SpaceRace.listeners;
 
 import com.alexsobiek.SpaceRace.GameManager;
-import com.alexsobiek.SpaceRace.Window;
+import com.alexsobiek.SpaceRace.graphics.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.entity.Location;
 import com.alexsobiek.SpaceRace.entity.entities.Player;

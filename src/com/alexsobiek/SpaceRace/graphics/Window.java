@@ -1,5 +1,8 @@
-package com.alexsobiek.SpaceRace;
+package com.alexsobiek.SpaceRace.graphics;
 
+import com.alexsobiek.SpaceRace.Config;
+import com.alexsobiek.SpaceRace.GameManager;
+import com.alexsobiek.SpaceRace.SpaceRace;
 import com.alexsobiek.SpaceRace.entity.Location;
 import com.alexsobiek.SpaceRace.entity.entities.Player;
 import com.alexsobiek.SpaceRace.entity.entities.Star;
@@ -11,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,10 @@ public class Window extends JPanel implements Listener {
     public static Player player1;
     public static Player player2;
 
-    public static final Color pauseColor = new Color(25, 25, 25);
+    private static final Config config = SpaceRace.config;
+    public static final Color pauseColor = config.getColor("pause_color");
+    public static final Color foregroundColor = config.getColor("foreground_color");
+    public static final Color backgroundColor = config.getColor("background_color");
 
     private final Font gameFont;
 
@@ -45,7 +50,7 @@ public class Window extends JPanel implements Listener {
         frame = new JFrame("Space Race");
         frame.add(this);
         frame.setSize(winWidth, winHeight);
-        frame.setBackground(Color.BLACK);
+        frame.setBackground(backgroundColor);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -75,6 +80,10 @@ public class Window extends JPanel implements Listener {
      */
     private static void spawnStars() {
         for (int i = 0; i <= maxStars; i++) stars.add(new Star());
+    }
+
+    public static List<Star> getStars() {
+        return stars;
     }
 
     /**
@@ -120,7 +129,7 @@ public class Window extends JPanel implements Listener {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setFont(gameFont);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(foregroundColor);
         if (GameManager.isRunning()) Timer.drawTimer(g2d);
         else drawCenteredString(g2d, "Game Over!");
 
@@ -170,6 +179,10 @@ public class Window extends JPanel implements Listener {
         int width = (int) g2d.getFontMetrics().getStringBounds(string, g2d).getWidth();
         int height = (int) g2d.getFontMetrics().getStringBounds(string, g2d).getHeight();
         g2d.drawString(string, (halfX - (width / 2)), (halfY - (height / 2)));
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 
 }

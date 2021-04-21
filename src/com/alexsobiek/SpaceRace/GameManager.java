@@ -1,6 +1,7 @@
 package com.alexsobiek.SpaceRace;
 
 import com.alexsobiek.SpaceRace.event.Listener;
+import com.alexsobiek.SpaceRace.graphics.Window;
 import com.alexsobiek.SpaceRace.listeners.KeyListener;
 import com.alexsobiek.SpaceRace.listeners.EntityMove;
 

@@ -2,13 +2,13 @@ package com.alexsobiek.SpaceRace.listeners;
 
 import com.alexsobiek.SpaceRace.GameManager;
 import com.alexsobiek.SpaceRace.TickManager;
-import com.alexsobiek.SpaceRace.Timer;
-import com.alexsobiek.SpaceRace.Window;
+import com.alexsobiek.SpaceRace.graphics.Timer;
 import com.alexsobiek.SpaceRace.entity.IEntity.MoveDirection;
 import com.alexsobiek.SpaceRace.entity.entities.Player;
 import com.alexsobiek.SpaceRace.event.EventHandler;
 import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.event.events.KeyInputEvent;
+import com.alexsobiek.SpaceRace.graphics.Window;
 
 import java.awt.*;
 
@@ -31,7 +31,7 @@ public class KeyListener implements Listener {
                 if (GameManager.isRunning()) {
                     if (GameManager.isPaused()) {
                         TickManager.startTicking();
-                        Window.frame.setBackground(Color.BLACK);
+                        Window.frame.setBackground(Window.backgroundColor);
                         Window.frame.repaint();
                         GameManager.setPaused(false);
                         System.out.println("Game Unpaused");

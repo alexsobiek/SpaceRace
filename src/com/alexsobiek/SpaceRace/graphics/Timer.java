@@ -1,8 +1,12 @@
-package com.alexsobiek.SpaceRace;
+package com.alexsobiek.SpaceRace.graphics;
 
+import com.alexsobiek.SpaceRace.GameManager;
+import com.alexsobiek.SpaceRace.SpaceRace;
+import com.alexsobiek.SpaceRace.TickManager;
 import com.alexsobiek.SpaceRace.event.EventHandler;
 import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
+import com.alexsobiek.SpaceRace.graphics.Window;
 
 import java.awt.*;
 
@@ -44,15 +48,15 @@ public class Timer implements Listener {
      * @param g2d Graphics2D object
      */
     public static void drawTimer(Graphics2D g2d) {
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Window.foregroundColor);
         g2d.setStroke(new BasicStroke(timerStroke));
         g2d.drawLine(Window.halfX, 0, Window.halfX, Window.winHeight);
 
         if (GameManager.isPaused()) g2d.setColor(Window.pauseColor);
-        else g2d.setColor(Color.BLACK);
+        else g2d.setColor(Window.backgroundColor);
         g2d.setStroke(new BasicStroke(timerStroke + 1));
         g2d.drawLine(Window.halfX, 0, Window.halfX, (int) timerHeight);
-        g2d.setColor(Color.WHITE); // Reset Color
+        g2d.setColor(Window.foregroundColor); // Reset Color
         g2d.setStroke(new BasicStroke(1)); // Reset Stroke
     }
 }
