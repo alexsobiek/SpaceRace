@@ -5,7 +5,7 @@ import com.alexsobiek.SpaceRace.entity.Location;
 import com.alexsobiek.SpaceRace.entity.entities.Player;
 import com.alexsobiek.SpaceRace.event.EventHandler;
 import com.alexsobiek.SpaceRace.event.Listener;
-import com.alexsobiek.SpaceRace.event.events.PlayerMoveEvent;
+import com.alexsobiek.SpaceRace.event.events.EntityMoveEvent;
 
 public class PlayerMove implements Listener {
 
@@ -14,9 +14,10 @@ public class PlayerMove implements Listener {
      * @param event PlayerMoveEvent
      */
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
+    public void onPlayerMove(EntityMoveEvent event) {
+        if (!(event.getEntity() instanceof Player)) return;
         if (GameManager.isRunning()) {
-            Player player = event.getPlayer();
+            Player player = (Player) event.getEntity();
             Location loc = player.getLocation();
             if (player.isOutOfBounds()) {
                 if (loc.getY() <= 0) {

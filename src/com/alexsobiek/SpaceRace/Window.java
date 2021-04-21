@@ -9,6 +9,7 @@ import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class Window extends JPanel implements Listener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, Path.of("fonts", "FFFFORWA.TTF").toFile()).deriveFont(Font.PLAIN, 16F);
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts", "FFFFORWA.TTF")).deriveFont(Font.PLAIN, 16F);
         } catch (IOException | FontFormatException e) {
             throw new Error(e);
         }

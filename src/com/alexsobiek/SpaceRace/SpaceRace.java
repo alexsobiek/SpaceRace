@@ -27,13 +27,13 @@ public class SpaceRace {
      */
     public static void main(String[] args) {
         EVENT_BUS = new EventBus();
+        //new TestClass();
         new KeyInput();
         new Timer();
         System.out.println("Starting Space Race");
         GameManager.start();
         new Window();
     }
-}
 
 //    public static final class TestClass implements Listener {
 //        private final List<Long> avgList = new ArrayList<>();
@@ -50,6 +50,17 @@ public class SpaceRace {
 //
 //        @EventHandler
 //        public void onTest(TestEvent event) {
-//            avgList.add(Math.subtractExact(System.currentTimeMillis(), event.getCreateTime()));
+//            avgList.add(System.currentTimeMillis() - event.getCreateTime());
+//        }
+//        private void formatOutput(List<Long> results) {
+//            StringBuilder builder = new StringBuilder();
+//            int overCount = 0;
+//            for (long result : results) {
+//                overCount++;
+//                if (overCount == 5) {
+//                    builder.append("\n");//Not done but im making a commit rn
+//                }
+//            }
 //        }
 //    }
+}

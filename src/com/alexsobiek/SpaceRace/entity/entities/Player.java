@@ -1,10 +1,8 @@
 package com.alexsobiek.SpaceRace.entity.entities;
 
-import com.alexsobiek.SpaceRace.SpaceRace;
 import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.entity.Location;
-import com.alexsobiek.SpaceRace.event.events.PlayerMoveEvent;
 import com.alexsobiek.SpaceRace.graphics.PlayerModel;
 
 import java.util.UUID;
@@ -98,9 +96,7 @@ public class Player implements IEntity {
      */
     @Override
     public void move(MoveDirection direction) {
-        PlayerMoveEvent moveEvent = new PlayerMoveEvent(this);
-        SpaceRace.EVENT_BUS.post(moveEvent);
-        if (moveEvent.isCancelled()) return;
+        if (!fireMoveEvent()) return;
         int y;
         switch (direction) {
             case UP:

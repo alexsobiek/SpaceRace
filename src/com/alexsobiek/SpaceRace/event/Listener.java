@@ -24,6 +24,6 @@ public interface Listener {
         return methods
                 .stream()
                 .sorted(Comparator.comparing(m -> m.getAnnotation(EventHandler.class).priority()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); //Return all methods tagged with @EventHandler sorted by priority
     }
 }
