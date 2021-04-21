@@ -32,13 +32,13 @@ public class KeyListener implements Listener {
                     Window.frame.setBackground(Color.BLACK);
                     Window.frame.repaint();
                     paused = false;
-                    System.out.println("Game Paused");
+                    System.out.println("Game Unpaused");
                 } else {
                     TickManager.stopTicking();
-                    Window.frame.setBackground(Color.RED);
+                    Window.frame.setBackground(Window.pauseColor);
                     Window.frame.repaint();
                     paused = true;
-                    System.out.println("Game Unpaused");
+                    System.out.println("Game Paused");
                 }
                 break;
             case 87: // Player 1 Up
