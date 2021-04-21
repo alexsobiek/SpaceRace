@@ -97,19 +97,20 @@ public class Player implements IEntity {
      */
     @Override
     public void move(MoveDirection direction) {
-        if (!fireMoveEvent()) return;
-        int y;
-        switch (direction) {
-            case UP:
-                y = location.getY() - speed;
-                location.setY(y);
-                playerModel.getPolygon().translate(0, -speed);
-                break;
-            case DOWN:
-                y = location.getY() + speed;
-                location.setY(y);
-                playerModel.getPolygon().translate(0, speed);
-                break;
+        if (fireMoveEvent()) {
+            int y;
+            switch (direction) {
+                case UP:
+                    y = location.getY() - speed;
+                    location.setY(y);
+                    playerModel.getPolygon().translate(0, -speed);
+                    break;
+                case DOWN:
+                    y = location.getY() + speed;
+                    location.setY(y);
+                    playerModel.getPolygon().translate(0, speed);
+                    break;
+            }
         }
     }
 

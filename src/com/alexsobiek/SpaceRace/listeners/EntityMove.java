@@ -18,7 +18,7 @@ public class EntityMove implements Listener {
      */
     @EventHandler
     public void onEntityMove(EntityMoveEvent event) {
-        if (GameManager.isRunning()) {
+        if (GameManager.isRunning() || GameManager.isPaused()) {
             IEntity entity = event.getEntity();
             if (entity instanceof Star) {
                 Star star = (Star) event.getEntity();
