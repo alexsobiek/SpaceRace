@@ -48,6 +48,7 @@ public class Star implements IEntity {
      * Gets the star's location
      * @return Location
      */
+    @Override
     public Location getLocation() {
         return location;
     }
@@ -74,13 +75,15 @@ public class Star implements IEntity {
 
     @Override
     public void move(MoveDirection direction) {
-        switch (direction) {
-            case LEFT:
-                location.setX(location.getX() - speed);
-                break;
-            case RIGHT:
-                location.setX(location.getX() + speed);
-                break;
+        if (fireMoveEvent()) {
+            switch (direction) {
+                case LEFT:
+                    location.setX(location.getX() - speed);
+                    break;
+                case RIGHT:
+                    location.setX(location.getX() + speed);
+                    break;
+            }
         }
     }
 

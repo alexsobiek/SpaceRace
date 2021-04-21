@@ -1,14 +1,10 @@
 package com.alexsobiek.SpaceRace.entity.entities;
 
-import com.alexsobiek.SpaceRace.SpaceRace;
 import com.alexsobiek.SpaceRace.Window;
 import com.alexsobiek.SpaceRace.entity.IEntity;
 import com.alexsobiek.SpaceRace.entity.Location;
-import com.alexsobiek.SpaceRace.event.events.PlayerMoveEvent;
 import com.alexsobiek.SpaceRace.graphics.PlayerModel;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
 import java.util.UUID;
 
 public class Player implements IEntity {
@@ -23,8 +19,9 @@ public class Player implements IEntity {
     /**
      * Constructor:
      * Creates a new player entity
-     * @param x Starting X coordinate
-     * @param y Starting Y coordinate
+     *
+     * @param x     Starting X coordinate
+     * @param y     Starting Y coordinate
      * @param speed Speed (pixels per tick)
      */
     public Player(int x, int y, int speed) {
@@ -36,6 +33,7 @@ public class Player implements IEntity {
 
     /**
      * Get the player's UUID
+     *
      * @return UUID
      */
     public UUID getId() {
@@ -44,6 +42,7 @@ public class Player implements IEntity {
 
     /**
      * Used for getting the MoveDirection of the player
+     *
      * @return MoveDirection
      */
     public MoveDirection getDirection() {
@@ -53,14 +52,17 @@ public class Player implements IEntity {
 
     /**
      * Gets the star's location
+     *
      * @return Location
      */
+    @Override
     public Location getLocation() {
         return location;
     }
 
     /**
      * Checks if player is out of the boundaries of the window
+     *
      * @return boolean
      */
     public boolean isOutOfBounds() {
@@ -69,6 +71,7 @@ public class Player implements IEntity {
 
     /**
      * Returns player's score
+     *
      * @return int
      */
     public int getScore() {
@@ -96,29 +99,26 @@ public class Player implements IEntity {
 
     /**
      * Moves the player relative to their speed in the provided direction
+     *
      * @param direction MoveDirection we should move the player
      */
     @Override
     public void move(MoveDirection direction) {
-        PlayerMoveEvent moveEvent = new PlayerMoveEvent(this);
-        SpaceRace.EVENT_BUS.post(moveEvent);
-        if (moveEvent.isCancelled()) return;
-        int y;
-        switch (direction) {
-            case UP:
-                y = location.getY() - speed;
-                location.setY(y);
-                playerModel.getPolygon().translate(0, y);
-                break;
-            case DOWN:
-                y = location.getY() + speed;
-                location.setY(y);
-                playerModel.getPolygon().translate(0, y);
-                break;
+        if (fireMoveEvent()) {
+            int y;
+            switch (direction) {
+                case UP:
+                    y = location.getY() - speed;
+                    location.setY(y);
+                    playerModel.getPolygon().translate(0, y);
+                    break;
+                case DOWN:
+                    y = location.getY() + speed;
+                    location.setY(y);
+                    playerModel.getPolygon().translate(0, y);
+                    break;
+            }
         }
-
-
-
     }
 
     /**
