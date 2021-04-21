@@ -32,7 +32,7 @@ public class Window extends JPanel implements Listener {
     public static Player player1;
     public static Player player2;
 
-    public static final Color pauseColor = new Color(15, 15, 15);
+    public static final Color pauseColor = new Color(25, 25, 25);
 
     private final Font gameFont;
 
