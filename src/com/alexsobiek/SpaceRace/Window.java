@@ -24,6 +24,8 @@ public class Window extends JPanel implements Listener {
     public static final int halfX = winWidth / 2;
     public static final int maxStars = 70;
 
+    private static final int time = 30;
+
     private static final List<Star> stars = new ArrayList<>();
 
     public static Player player1;
@@ -31,7 +33,8 @@ public class Window extends JPanel implements Listener {
 
     public static final Color pauseColor = new Color(15, 15, 15);
 
-    private Font gameFont;
+    private final Font gameFont;
+
     /**
      * Constructor:
      * Creates a new window and begins painting
@@ -46,14 +49,14 @@ public class Window extends JPanel implements Listener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, Path.of("fonts", "FFFFORWA.TTF").toFile());
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, Path.of("fonts", "FFFFORWA.TTF").toFile()).deriveFont(Font.PLAIN, 16F);
         } catch (IOException | FontFormatException e) {
             throw new Error(e);
         }
 
         spawnStars();
         spawnPlayers();
-        Timer.start(30);
+        Timer.start(time);
     }
 
     /**
@@ -62,7 +65,7 @@ public class Window extends JPanel implements Listener {
     public static void reset() {
         stars.clear();
         spawnStars();
-        Timer.start(10);
+        Timer.start(time);
         frame.repaint();
     }
 
@@ -145,7 +148,7 @@ public class Window extends JPanel implements Listener {
      * @param g2d Graphics2D to use for painting
      */
     private void drawPlayerScores(Graphics2D g2d) {
-        g2d.setFont(gameFont.deriveFont(Font.PLAIN, 58f));
+        g2d.setFont(gameFont.deriveFont(Font.PLAIN, 58F));
         // Draw player scores
         if (player1 != null) {
             g2d.drawString("" + player1.getScore(), halfX - 175, winHeight - 50);
