@@ -2,7 +2,7 @@ package com.alexsobiek.SpaceRace;
 
 import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.listeners.KeyListener;
-import com.alexsobiek.SpaceRace.listeners.PlayerMove;
+import com.alexsobiek.SpaceRace.listeners.EntityMove;
 
 public class GameManager {
 
@@ -15,7 +15,7 @@ public class GameManager {
     public static void start() {
         running = true;
         subscribe(new KeyListener()); // Subscribes KeyListener to the EventBus
-        subscribe(new PlayerMove()); // Subscribes PlayerMove to the EventBus
+        subscribe(new EntityMove()); // Subscribes PlayerMove to the EventBus
         TickManager.startTicking();
     }
 
