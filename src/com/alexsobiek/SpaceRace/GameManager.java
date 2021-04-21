@@ -13,10 +13,6 @@ public class GameManager {
         GameManager.running = running;
     }
 
-    public static void setPaused(boolean paused) {
-        GameManager.paused = paused;
-    }
-
     /**
      * Starts the game
      */
