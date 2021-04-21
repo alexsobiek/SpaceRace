@@ -48,7 +48,8 @@ public class Timer implements Listener {
         g2d.setStroke(new BasicStroke(timerStroke));
         g2d.drawLine(Window.halfX, 0, Window.halfX, Window.winHeight);
 
-        g2d.setColor(Color.BLACK);
+        if (GameManager.isPaused()) g2d.setColor(Window.pauseColor);
+        else g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(timerStroke + 1));
         g2d.drawLine(Window.halfX, 0, Window.halfX, (int) timerHeight);
         g2d.setColor(Color.WHITE); // Reset Color
