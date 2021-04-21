@@ -18,7 +18,7 @@ public class PlayerModel {
         int baseWidth = 4;
 
         int firstOffsetWidth = 10;
-        int firstOffsetHeight = 8;
+        int firstOffsetHeight = 10;
 
         int secondOffsetWidth = 10;
         int secondOffsetHeight = 12;
