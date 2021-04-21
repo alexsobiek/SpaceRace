@@ -101,10 +101,7 @@ public class PlayerModel {
 
     public void draw(Graphics2D g2d) {
         g2d.setStroke(new BasicStroke(3));
-        if (GameManager.isPaused()) {
-            System.out.println("PAUSED");
-            g2d.setColor(Window.pauseColor);
-        }
+        if (GameManager.isPaused()) g2d.setColor(Window.pauseColor);
         else g2d.setColor(Color.BLACK);
 
         g2d.fillPolygon(model);
