@@ -85,10 +85,10 @@ public class Player implements IEntity {
     /**
      * Resets a player's score and position
      */
-    public void reset() {
+    public void reset(boolean resetScore) {
         location.reset();
         playerModel.reset();
-        score = 0;
+        if (resetScore) score = 0;
     }
 
     /**
