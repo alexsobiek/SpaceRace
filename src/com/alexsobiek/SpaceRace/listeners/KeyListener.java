@@ -27,17 +27,17 @@ public class KeyListener implements Listener {
                 Timer.start(15);
                 break;
             case 80: // Pause
-                if (paused) {
+                if (GameManager.isPaused()) {
                     TickManager.startTicking();
                     Window.frame.setBackground(Color.BLACK);
                     Window.frame.repaint();
-                    paused = false;
+                    GameManager.setPaused(false);
                     System.out.println("Game Unpaused");
                 } else {
                     TickManager.stopTicking();
                     Window.frame.setBackground(Window.pauseColor);
                     Window.frame.repaint();
-                    paused = true;
+                    GameManager.setPaused(true);
                     System.out.println("Game Paused");
                 }
                 break;
