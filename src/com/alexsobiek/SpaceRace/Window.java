@@ -18,14 +18,16 @@ public class Window extends JPanel implements Listener {
 
     public static final int winHeight = 800;
     public static final int winWidth = 1200;
-    public static final int halfY = Window.winHeight / 2;
-    public static final int halfX = Window.winWidth / 2;
+    public static final int halfY = winHeight / 2;
+    public static final int halfX = winWidth / 2;
     public static final int maxStars = 70;
 
     private static final List<Star> stars = new ArrayList<>();
 
     public static Player player1;
     public static Player player2;
+
+    public static final Color pauseColor = new Color(15, 15, 15);
 
     /**
      * Constructor:
@@ -125,13 +127,12 @@ public class Window extends JPanel implements Listener {
      */
     private void drawPlayer(Graphics2D g2d, Player player) {
         if (player != null) {
+            /*
             Location loc = player.getLocation();
             g2d.fillOval(loc.getX(), loc.getY(), 40, 40);
+            */
+            player.getModel().draw(g2d);
         }
-    }
-
-    private void drawPlayerMatrix() {
-
     }
 
     /**
