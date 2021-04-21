@@ -23,7 +23,7 @@ public class PlayerModel {
         int secondOffsetWidth = 10;
         int secondOffsetHeight = 12;
 
-        int neckHeight = 10;
+        int neckHeight = 12;
 
         xCoords[0] = xTop;
         yCoords[0] = yTop;
@@ -51,7 +51,7 @@ public class PlayerModel {
 
         makeThruster(7); // pos 8 - 10
 
-        int thrusterOffset = xTop - xCoords[7] + 3; // Calculate distance between thrusters
+        int thrusterOffset = xTop - xCoords[7]; // Calculate distance between thrusters
         xCoords[11] = xCoords[10] + thrusterOffset;
         yCoords[11] = yCoords[10];
 
@@ -86,8 +86,8 @@ public class PlayerModel {
      * @param pos Starting position for thruster
      */
     private void makeThruster(int pos) {
-        int thrusterHeight = 6;
-        int thrusterWidth = 4;
+        int thrusterHeight = 8;
+        int thrusterWidth = 6;
 
         xCoords[pos+1] = xCoords[pos]; // First thruster
         yCoords[pos+1] = yCoords[pos] + thrusterHeight; // down
@@ -100,7 +100,7 @@ public class PlayerModel {
     }
 
     public void draw(Graphics2D g2d) {
-        g2d.setStroke(new BasicStroke(2));
+        g2d.setStroke(new BasicStroke(3));
         if (GameManager.isPaused()) {
             System.out.println("PAUSED");
             g2d.setColor(Window.pauseColor);
