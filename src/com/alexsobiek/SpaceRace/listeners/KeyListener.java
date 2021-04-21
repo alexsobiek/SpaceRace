@@ -28,18 +28,20 @@ public class KeyListener implements Listener {
                 Timer.start(15);
                 break;
             case 80: // Pause
-                if (GameManager.isPaused()) {
-                    TickManager.startTicking();
-                    Window.frame.setBackground(Color.BLACK);
-                    Window.frame.repaint();
-                    GameManager.setPaused(false);
-                    System.out.println("Game Unpaused");
-                } else {
-                    TickManager.stopTicking();
-                    Window.frame.setBackground(Window.pauseColor);
-                    Window.frame.repaint();
-                    GameManager.setPaused(true);
-                    System.out.println("Game Paused");
+                if (GameManager.isRunning()) {
+                    if (GameManager.isPaused()) {
+                        TickManager.startTicking();
+                        Window.frame.setBackground(Color.BLACK);
+                        Window.frame.repaint();
+                        GameManager.setPaused(false);
+                        System.out.println("Game Unpaused");
+                    } else {
+                        TickManager.stopTicking();
+                        Window.frame.setBackground(Window.pauseColor);
+                        Window.frame.repaint();
+                        GameManager.setPaused(true);
+                        System.out.println("Game Paused");
+                    }
                 }
                 break;
             case 87: // Player 1 Up
