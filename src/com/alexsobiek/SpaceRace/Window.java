@@ -148,6 +148,7 @@ public class Window extends JPanel implements Listener {
      * @param g2d Graphics2D to use for painting
      */
     private void drawPlayerScores(Graphics2D g2d) {
+        if (gameFont == null) return;
         g2d.setFont(gameFont.deriveFont(Font.PLAIN, 58F));
         // Draw player scores
         if (player1 != null) {
