@@ -27,16 +27,16 @@ public class GameManager {
         TickManager.startTicking();
     }
 
-    private static void resetPlayers() {
-        Window.player1.reset();
-        Window.player2.reset();
+    private static void resetPlayers(boolean resetScore) {
+        Window.player1.reset(resetScore);
+        Window.player2.reset(resetScore);
     }
 
     /**
      * Ends the game
      */
     public static void end() { // Game over
-        resetPlayers();
+        resetPlayers(false);
         TickManager.stopTicking();
         running = false;
     }
@@ -46,7 +46,7 @@ public class GameManager {
      */
     public static void restart() {
         Window.reset();
-        resetPlayers();
+        resetPlayers(true);
         if (!running) {
             TickManager.startTicking();
             running = true;
@@ -55,14 +55,26 @@ public class GameManager {
     }
 
     /**
-     * Checks whether or not the game is active
+     * Returns whether or not the game is active
      * @return boolean
      */
     public static boolean isRunning() {
         return running;
     }
 
+    /**
+     * Returns whether or not the game is paused
+     * @return boolean
+     */
     public static boolean isPaused() { return paused; }
+
+    /**
+     * Sets the game's pause state
+     * @param paused Pause or unpause the game
+     */
+    public static void setPaused(boolean paused) {
+        GameManager.paused = paused;
+    }
 
     /**
      * Utility method to subscribe listeners to the EventBus
