@@ -16,6 +16,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class Window extends JPanel implements Listener {
@@ -172,10 +173,12 @@ public class Window extends JPanel implements Listener {
      * Loops through stars and moves them
      */
     public void moveStars() {
-        for (Star star : stars) {
-            if (checkStar(star)) return;
-            star.move(star.getDirection());
-        }
+        try {
+            for (Star star : stars) {
+                if (checkStar(star)) return;
+                star.move(star.getDirection());
+            }
+        } catch (ConcurrentModificationException ignored) {}
     }
 
     /**
@@ -200,10 +203,13 @@ public class Window extends JPanel implements Listener {
         else drawCenteredString(g2d, "Game Over!");
 
         if (stars.size() > 0) {
-            stars.forEach(star -> {
-                Location loc = star.getLocation();
-                g.fillOval(loc.getX(), loc.getY(), 6, 6);
-            });
+            try {
+                stars.forEach(star -> {
+                    Location loc = star.getLocation();
+                    g.fillOval(loc.getX(), loc.getY(), 6, 6);
+                });
+            } catch (ConcurrentModificationException ignored) {}
+
         }
 
         drawPlayer(g2d, player1);
