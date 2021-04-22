@@ -25,8 +25,8 @@ public class EntityMove implements Listener {
                 Location loc = star.getLocation();
 
                 // Check if star collides with a player
-                if (Window.player1.getModel().getPolygon().contains(loc.getX(), loc.getY())) resetEntity(Window.player1);
-                else if (Window.player2.getModel().getPolygon().contains(loc.getX(), loc.getY())) resetEntity(Window.player2);
+                if (Window.player1 != null && Window.player1.getModel().getPolygon().contains(loc.getX(), loc.getY())) resetEntity(Window.player1);
+                else if (Window.player1 != null && Window.player2.getModel().getPolygon().contains(loc.getX(), loc.getY())) resetEntity(Window.player2);
 
             } else if (entity instanceof Player) {
                 Player player = (Player) event.getEntity();
