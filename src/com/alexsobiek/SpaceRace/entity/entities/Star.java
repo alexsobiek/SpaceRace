@@ -58,7 +58,8 @@ public class Star implements IEntity {
      * @return boolean
      */
     public boolean isOutOfBounds() {
-        return (location.getX() > Window.winWidth && direction == IEntity.MoveDirection.RIGHT || location.getX() < 0 && direction == IEntity.MoveDirection.LEFT);
+        return (location.getX() > Window.winWidth && direction == IEntity.MoveDirection.RIGHT ||
+                location.getX() < 0 && direction == IEntity.MoveDirection.LEFT);
     }
 
     /**
