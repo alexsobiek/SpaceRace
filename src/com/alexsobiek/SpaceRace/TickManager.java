@@ -11,7 +11,6 @@ public class TickManager {
     public static final int TPS = 200; // Define how many ticks per second the game should have
     private static ScheduledExecutorService service = null;
 
-
     /**
      * Creates a Scheduled Thread Pool and begins ticking the game
      */
@@ -29,5 +28,4 @@ public class TickManager {
             service = null;
         }
     }
-
 }

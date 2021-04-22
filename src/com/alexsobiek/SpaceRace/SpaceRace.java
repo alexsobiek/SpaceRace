@@ -3,7 +3,6 @@ package com.alexsobiek.SpaceRace;
 import com.alexsobiek.SpaceRace.event.EventBus;
 import com.alexsobiek.SpaceRace.event.listener.KeyInput;
 import com.alexsobiek.SpaceRace.event.listener.WindowResize;
-import com.alexsobiek.SpaceRace.graphics.Timer;
 import com.alexsobiek.SpaceRace.graphics.Window;
 
 /**
@@ -16,7 +15,6 @@ import com.alexsobiek.SpaceRace.graphics.Window;
 
 public class SpaceRace {
     public static EventBus EVENT_BUS;
-    public static Config config;
 
     /**
      * Main entry point for Space Race
@@ -26,7 +24,6 @@ public class SpaceRace {
     public static void main(String[] args) {
         System.out.println("Starting Space Race");
         EVENT_BUS = new EventBus();
-        config = new Config();
         //new TestClass();
 
 
