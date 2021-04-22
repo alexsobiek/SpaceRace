@@ -34,7 +34,6 @@ public class Window extends JPanel implements Listener {
 
     private static Timer timer;
 
-    private static final Config config = SpaceRace.config;
     public static Color pauseColor;
     public static Color foregroundColor;
     public static Color backgroundColor;
@@ -50,7 +49,7 @@ public class Window extends JPanel implements Listener {
 
         frame = new JFrame("Space Race");
         frame.add(this);
-        frame.setSize(config.getInt("window_length"), config.getInt("window_height"));
+        frame.setSize(Config.getInt(Config.WINDOW_LENGTH), Config.getInt(Config.WINDOW_HEIGHT));
 
         init();
 
@@ -74,9 +73,9 @@ public class Window extends JPanel implements Listener {
      * Utility class for initializing class variables
      */
     private static void init() {
-        pauseColor = config.getColor("pause_color");
-        foregroundColor = config.getColor("foreground_color");
-        backgroundColor = config.getColor("background_color");
+        pauseColor = Config.getColor(Config.PAUSE_COLOR);
+        foregroundColor = Config.getColor(Config.FOREGROUND_COLOR);
+        backgroundColor = Config.getColor(Config.BACKGROUND_COLOR);
         winHeight = frame.getHeight();
         winWidth = frame.getWidth();
         halfX = winWidth / 2;
@@ -96,7 +95,7 @@ public class Window extends JPanel implements Listener {
 
     public static void startTimer() {
         if (timer != null) clearTimer();
-        timer = new Timer(config.getInt("time"));
+        timer = new Timer(Config.getInt(Config.TIME));
     }
 
     private static void clearTimer() {
@@ -108,7 +107,8 @@ public class Window extends JPanel implements Listener {
      * Spawns stars to be painted in the window
      */
     private static void spawnStars() {
-        for (int i = 0; i <= config.getInt("max_stars"); i++) stars.add(new Star());
+        int maxStars = Config.getInt(Config.MAX_STARS);
+        for (int i = 0; i <= maxStars; i++) stars.add(new Star());
     }
 
     public static List<Star> getStars() {
