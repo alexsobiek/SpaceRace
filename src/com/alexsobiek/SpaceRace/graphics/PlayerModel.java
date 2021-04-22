@@ -1,6 +1,7 @@
 package com.alexsobiek.SpaceRace.graphics;
 
 import com.alexsobiek.SpaceRace.GameManager;
+import com.alexsobiek.SpaceRace.entity.Location;
 
 import java.awt.*;
 
@@ -11,8 +12,24 @@ public class PlayerModel {
     int[] xCoords = new int[22];
     int[] yCoords = new int[22];
 
-    public PlayerModel(int xTop, int yTop) {
+    int xTop;
+    int yTop;
 
+    /**
+     * Constructor:
+     * Creates a new player model at the starting location
+     * @param location location of player model
+     */
+    public PlayerModel(Location location) {
+        xTop = location.getX();
+        yTop = location.getY();
+        calculatePos();
+    }
+
+    /**
+     * Calculates the models polygon
+     */
+    private void calculatePos() {
         int baseHeight = 2;
         int baseWidth = 4;
 
@@ -80,6 +97,7 @@ public class PlayerModel {
         model = new Polygon(xCoords, yCoords, xCoords.length);
     }
 
+
     /**
      * Creates a thruster at the specified position
      * @param pos Starting position for thruster
@@ -98,6 +116,10 @@ public class PlayerModel {
         yCoords[pos+3] = yCoords[pos+2] - thrusterHeight; // up
     }
 
+    /**
+     * Draws this model using Graphics2D
+     * @param g2d Graphics2D object
+     */
     public void draw(Graphics2D g2d) {
         g2d.setStroke(new BasicStroke(3));
         if (GameManager.isPaused()) g2d.setColor(Window.pauseColor);
@@ -109,10 +131,27 @@ public class PlayerModel {
         g2d.setStroke(new BasicStroke(1));
     }
 
+    /**
+     * Returns this model's polygon
+     * @return Polygon
+     */
     public Polygon getPolygon() {
         return model;
     }
 
+    /**
+     * Sets this models spawn point and recalculates its position
+     * @param location location to set spawn at
+     */
+    public void setSpawn(Location location) {
+        xTop = location.getX();
+        yTop = location.getY();
+        calculatePos();
+    }
+
+    /**
+     * Resets this models position
+     */
     public void reset() {
         model = new Polygon(xCoords, yCoords, xCoords.length);
     }

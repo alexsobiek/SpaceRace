@@ -2,15 +2,12 @@ package com.alexsobiek.SpaceRace.listeners;
 
 import com.alexsobiek.SpaceRace.GameManager;
 import com.alexsobiek.SpaceRace.TickManager;
-import com.alexsobiek.SpaceRace.graphics.Timer;
 import com.alexsobiek.SpaceRace.entity.IEntity.MoveDirection;
 import com.alexsobiek.SpaceRace.entity.entities.Player;
 import com.alexsobiek.SpaceRace.event.EventHandler;
 import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.event.events.KeyInputEvent;
 import com.alexsobiek.SpaceRace.graphics.Window;
-
-import java.awt.*;
 
 public class KeyListener implements Listener {
     boolean paused = false;
@@ -25,7 +22,7 @@ public class KeyListener implements Listener {
         switch (keyCode) {
             case 82: // Reset
                 GameManager.restart();
-                Timer.start(15);
+                Window.startTimer();
                 break;
             case 80: // Pause
                 if (GameManager.isRunning()) {

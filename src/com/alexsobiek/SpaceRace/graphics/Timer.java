@@ -6,39 +6,68 @@ import com.alexsobiek.SpaceRace.TickManager;
 import com.alexsobiek.SpaceRace.event.EventHandler;
 import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
-import com.alexsobiek.SpaceRace.graphics.Window;
 
 import java.awt.*;
 
 public class Timer implements Listener {
 
-    private static final int timerStroke = 10; // Pixels to stroke the timer line
-    private static double timerHeight;
-    private static int maxTimerHeight;
+    private final int timerStroke = 10; // Pixels to stroke the timer line
+    private double timerHeight;
+    private int maxTimerHeight;
 
-    private static double pixelsPerTick;
+    private double pixelsPerTick;
+
+    public long remainingTicks;
+    public long totalTicks;
 
     /**
      * Constructor:
-     * Subscribes the Timer to the EventBus so we can listen for tick events
+     * Creates a new timer instance
+     * @param seconds Amount of time in seconds this timer should have
      */
-    public Timer() {
+    public Timer(int seconds) {
         SpaceRace.EVENT_BUS.subscribe(this);
+        start(seconds);
+    }
+
+    /**
+     * Constructor:
+     * Creates a new timer instance
+     * @param ticks Amount of time in ticks this timer should have
+     */
+    public Timer(long ticks) {
+        SpaceRace.EVENT_BUS.subscribe(this);
+        start(ticks);
     }
 
     /**
      * Starts the game timer
-     * @param time Amount of time the game should have
+     * @param seconds Amount of time in seconds the game should have
      */
-    public static void start(int time) {
-        int totalTicks = time * TickManager.TPS;
+    private void start(int seconds) {
+        long totalTicks = (long) seconds * TickManager.TPS;
+        start(totalTicks);
+    }
+
+    /**
+     * Starts the game timer
+     * @param ticks Amount of time in ticks the game should have
+     */
+    private void start(long ticks) {
         timerHeight = 0;
+        this.totalTicks = ticks;
+        remainingTicks = ticks;
         maxTimerHeight = Window.winHeight - (timerStroke * 4);
-        pixelsPerTick = (double) maxTimerHeight / totalTicks;
+        pixelsPerTick = (double) maxTimerHeight / ticks;
+    }
+
+    public long getRemainingTicks() {
+        return remainingTicks;
     }
 
     @EventHandler
     public void onTick(GameTickEvent event) {
+        remainingTicks--;
         timerHeight += pixelsPerTick;
         if (maxTimerHeight > 0 && timerHeight >= maxTimerHeight) GameManager.end();
     }
@@ -47,7 +76,7 @@ public class Timer implements Listener {
      * Draws the timer line on the screen
      * @param g2d Graphics2D object
      */
-    public static void drawTimer(Graphics2D g2d) {
+    public void drawTimer(Graphics2D g2d) {
         g2d.setColor(Window.foregroundColor);
         g2d.setStroke(new BasicStroke(timerStroke));
         g2d.drawLine(Window.halfX, 0, Window.halfX, Window.winHeight);

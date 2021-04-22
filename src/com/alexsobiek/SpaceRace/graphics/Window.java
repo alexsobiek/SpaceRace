@@ -9,6 +9,7 @@ import com.alexsobiek.SpaceRace.entity.entities.Star;
 import com.alexsobiek.SpaceRace.event.EventHandler;
 import com.alexsobiek.SpaceRace.event.Listener;
 import com.alexsobiek.SpaceRace.event.events.GameTickEvent;
+import com.alexsobiek.SpaceRace.event.events.WindowResizeEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,23 +22,22 @@ public class Window extends JPanel implements Listener {
 
     public static JFrame frame = null;
 
-    public static final int winHeight = 800;
-    public static final int winWidth = 1200;
-    public static final int halfY = winHeight / 2;
-    public static final int halfX = winWidth / 2;
-    public static final int maxStars = 70;
-
-    private static final int time = 30;
+    public static int winHeight;
+    public static int winWidth;
+    public static int halfY;
+    public static int halfX;
 
     private static final List<Star> stars = new ArrayList<>();
 
     public static Player player1;
     public static Player player2;
 
+    private static Timer timer;
+
     private static final Config config = SpaceRace.config;
-    public static final Color pauseColor = config.getColor("pause_color");
-    public static final Color foregroundColor = config.getColor("foreground_color");
-    public static final Color backgroundColor = config.getColor("background_color");
+    public static Color pauseColor;
+    public static Color foregroundColor;
+    public static Color backgroundColor;
 
     private final Font gameFont;
 
@@ -47,12 +47,18 @@ public class Window extends JPanel implements Listener {
      */
     public Window() {
         SpaceRace.EVENT_BUS.subscribe(this);
+
         frame = new JFrame("Space Race");
         frame.add(this);
-        frame.setSize(winWidth, winHeight);
+        frame.setSize(config.getInt("window_length"), config.getInt("window_height"));
+
+        init();
+
         frame.setBackground(backgroundColor);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        startTimer();
 
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts", "FFFFORWA.TTF")).deriveFont(Font.PLAIN, 16F);
@@ -62,24 +68,47 @@ public class Window extends JPanel implements Listener {
 
         spawnStars();
         spawnPlayers();
-        Timer.start(time);
+    }
+
+    /**
+     * Utility class for initializing class variables
+     */
+    private static void init() {
+        pauseColor = config.getColor("pause_color");
+        foregroundColor = config.getColor("foreground_color");
+        backgroundColor = config.getColor("background_color");
+        winHeight = frame.getHeight();
+        winWidth = frame.getWidth();
+        halfX = winWidth / 2;
+        halfY = winHeight / 2;
     }
 
     /**
      * Resets the window
      */
     public static void reset() {
+        init();
         stars.clear();
         spawnStars();
-        Timer.start(time);
+        startTimer();
         frame.repaint();
+    }
+
+    public static void startTimer() {
+        if (timer != null) clearTimer();
+        timer = new Timer(config.getInt("time"));
+    }
+
+    private static void clearTimer() {
+        SpaceRace.EVENT_BUS.unSubscribe(timer);
+        timer = null;
     }
 
     /**
      * Spawns stars to be painted in the window
      */
     private static void spawnStars() {
-        for (int i = 0; i <= maxStars; i++) stars.add(new Star());
+        for (int i = 0; i <= config.getInt("max_stars"); i++) stars.add(new Star());
     }
 
     public static List<Star> getStars() {
@@ -100,6 +129,43 @@ public class Window extends JPanel implements Listener {
             moveStars();
             frame.repaint();
         }
+    }
+
+    @EventHandler
+    public void onResize(WindowResizeEvent event) {
+        int prevHeight = winHeight;
+        init();
+
+
+        /*
+        ========================================
+        To Do:
+        Clearing and respawning all the stars
+        creates a break in the game where there
+        are no stars. Fix this by dynamically
+        resetting the stars origin positions
+        instead.
+        ========================================
+        */
+
+        stars.clear();
+        spawnStars();
+
+
+        Component component = event.getComponentEvent().getComponent();
+        if (component.getHeight() != prevHeight) {
+            long ticksRemaining = timer.getRemainingTicks();
+            clearTimer();
+            timer = new Timer(ticksRemaining);
+        }
+
+        Location player1Location = new Location((halfX - 100), (winHeight - 100));
+        Location player2Location = new Location((halfX + 100), (winHeight - 100));
+
+        player1.setLocation(player1Location);
+        player2.setLocation(player2Location);
+
+        frame.repaint();
     }
 
     /**
@@ -130,7 +196,7 @@ public class Window extends JPanel implements Listener {
         g2d.setFont(gameFont);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(foregroundColor);
-        if (GameManager.isRunning()) Timer.drawTimer(g2d);
+        if (GameManager.isRunning() && timer != null) timer.drawTimer(g2d);
         else drawCenteredString(g2d, "Game Over!");
 
         if (stars.size() > 0) {
@@ -139,6 +205,7 @@ public class Window extends JPanel implements Listener {
                 g.fillOval(loc.getX(), loc.getY(), 6, 6);
             });
         }
+
         drawPlayer(g2d, player1);
         drawPlayer(g2d, player2);
         drawPlayerScores(g2d);
@@ -180,9 +247,4 @@ public class Window extends JPanel implements Listener {
         int height = (int) g2d.getFontMetrics().getStringBounds(string, g2d).getHeight();
         g2d.drawString(string, (halfX - (width / 2)), (halfY - (height / 2)));
     }
-
-    public JFrame getFrame() {
-        return frame;
-    }
-
 }

@@ -2,6 +2,7 @@ package com.alexsobiek.SpaceRace;
 
 import com.alexsobiek.SpaceRace.event.EventBus;
 import com.alexsobiek.SpaceRace.event.listener.KeyInput;
+import com.alexsobiek.SpaceRace.event.listener.WindowResize;
 import com.alexsobiek.SpaceRace.graphics.Timer;
 import com.alexsobiek.SpaceRace.graphics.Window;
 
@@ -23,14 +24,17 @@ public class SpaceRace {
      * @param args Unused
      */
     public static void main(String[] args) {
+        System.out.println("Starting Space Race");
         EVENT_BUS = new EventBus();
         config = new Config();
         //new TestClass();
-        new KeyInput();
-        new Timer();
-        System.out.println("Starting Space Race");
+
+
         GameManager.start();
         new Window();
+        new KeyInput();
+        new WindowResize();
+
     }
 
 //    public static final class TestClass implements Listener {

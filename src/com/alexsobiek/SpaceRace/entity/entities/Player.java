@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class Player implements IEntity {
     private final PlayerModel playerModel;
-    private final Location location;
+    private Location location;
     private final int speed;
     private MoveDirection direction;
     private final UUID id;
@@ -27,7 +27,7 @@ public class Player implements IEntity {
         this.speed = speed;
         location = new Location(x, y);
         id = UUID.randomUUID();
-        playerModel = new PlayerModel(x, y);
+        playerModel = new PlayerModel(location);
     }
 
     /**
@@ -53,6 +53,14 @@ public class Player implements IEntity {
      */
     public Location getLocation() {
         return location;
+    }
+
+    public void setLocation(Location location) {
+        int deltaX = location.getX() - this.location.getX();
+        int deltaY = location.getY() - this.location.getY();
+        this.location = location;
+        playerModel.getPolygon().translate(deltaX, deltaY);
+        playerModel.setSpawn(location);
     }
 
     /**
