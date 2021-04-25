@@ -120,10 +120,14 @@ public class Window extends JPanel implements Listener {
      * Spawns players to be painted in the window
      */
     private void spawnPlayers() {
-        player1 = new Player((halfX - 100), (winHeight - 100), 10);
-        player2 = new Player((halfX + 100), (winHeight - 100), 10);
+        player1 = new Player((halfX - 87), (winHeight - 100), 10);
+        player2 = new Player((halfX + 87), (winHeight - 100), 10);
     }
 
+    /**
+     * Called when a GameTickEvent is invoked
+     * @param event GameTickEvent
+     */
     @EventHandler
     public void onTick(GameTickEvent event) {
         if (frame != null) {
@@ -206,7 +210,7 @@ public class Window extends JPanel implements Listener {
             try {
                 stars.forEach(star -> {
                     Location loc = star.getLocation();
-                    g.fillOval(loc.getX(), loc.getY(), 6, 6);
+                    g.fillOval(loc.getX(), loc.getY(), 6, 4);
                 });
             } catch (ConcurrentModificationException ignored) {}
 
@@ -235,10 +239,10 @@ public class Window extends JPanel implements Listener {
         g2d.setFont(gameFont.deriveFont(Font.PLAIN, 58F));
         // Draw player scores
         if (player1 != null) {
-            g2d.drawString("" + player1.getScore(), halfX - 175, winHeight - 50);
+            g2d.drawString(String.valueOf(player1.getScore()), halfX - 185, winHeight - 50);
         }
         if (player2 != null) {
-            g2d.drawString("" + player2.getScore(), halfX + 175, winHeight - 50);
+            g2d.drawString(String.valueOf(player2.getScore()), halfX + 150, winHeight - 50);
         }
         g2d.setFont(gameFont);
     }
