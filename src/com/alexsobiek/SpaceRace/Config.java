@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public enum Config {
     MAX_STARS(70),
-    TIME(15),
+    TIME(30),
     TPS(200),
     WINDOW_HEIGHT(800),
     WINDOW_LENGTH(1200),
