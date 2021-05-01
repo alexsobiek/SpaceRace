@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.pistonmaster</groupId>
+    <groupId>com.alexsobiek</groupId>
     <artifactId>SpaceRace</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>SpaceRace</name>
 
-    <description>An advanced chat plugin for survival/anarchy servers.</description>
+    <description>Rewrite of the original Atari game Space Race from 1973 in Java.</description>
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
