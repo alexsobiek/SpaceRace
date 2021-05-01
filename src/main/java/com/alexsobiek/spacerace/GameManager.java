@@ -6,7 +6,6 @@ import com.alexsobiek.spacerace.listeners.EntityMove;
 import com.alexsobiek.spacerace.listeners.KeyListener;
 
 public class GameManager {
-
     private static boolean running = false;
     private static boolean paused = false;
 

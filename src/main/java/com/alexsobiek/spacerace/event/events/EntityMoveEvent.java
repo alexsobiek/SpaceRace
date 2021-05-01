@@ -1,7 +1,6 @@
 package com.alexsobiek.spacerace.event.events;
 
 import com.alexsobiek.spacerace.entity.IEntity;
-import com.alexsobiek.spacerace.entity.Location;
 import com.alexsobiek.spacerace.event.Cancellable;
 import com.alexsobiek.spacerace.event.Event;
 
@@ -15,10 +14,6 @@ public class EntityMoveEvent extends Event implements Cancellable {
 
     public IEntity getEntity() {
         return entity;
-    }
-
-    public Location getLocation() {
-        return entity.getLocation();
     }
 
     @Override
