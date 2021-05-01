@@ -72,11 +72,28 @@
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>3.1.1</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.alexsobiek.spacerace.SpaceRace</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/jasperreports_extension.properties</include>
+                    <include>**/tecsofti-fonts.xml</include>
+                    <include>**/*.ttf</include>
+                </includes>
             </resource>
         </resources>
     </build>

@@ -57,7 +57,7 @@ public class Window extends JPanel implements Listener {
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts", "FFFFORWA.TTF")).deriveFont(Font.PLAIN, 16F);
         } catch (IOException | FontFormatException e) {
-            throw new Error(e);
+            throw new ExceptionInInitializerError(e);
         }
 
         spawnStars();

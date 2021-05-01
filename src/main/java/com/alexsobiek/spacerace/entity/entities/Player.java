@@ -113,16 +113,16 @@ public class Player implements IEntity {
         if (fireMoveEvent()) {
             int y;
             switch (direction) {
-                case UP -> {
+                case UP:
                     y = location.getY() - speed;
                     location.setY(y);
                     playerModel.getPolygon().translate(0, -speed);
-                }
-                case DOWN -> {
+                    break;
+                case DOWN:
                     y = location.getY() + speed;
                     location.setY(y);
                     playerModel.getPolygon().translate(0, speed);
-                }
+                    break;
             }
         }
     }

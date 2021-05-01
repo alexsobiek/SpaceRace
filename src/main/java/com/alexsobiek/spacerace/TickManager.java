@@ -7,7 +7,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class TickManager {
-
     public static final int TPS = Config.getInt(Config.TPS); // Define how many ticks per second the game should have
     private static ScheduledExecutorService service = null;
 
