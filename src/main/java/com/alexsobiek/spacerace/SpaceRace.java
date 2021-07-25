@@ -18,8 +18,8 @@ import com.alexsobiek.spacerace.util.Logger;
 
 public class SpaceRace {
     public static final EventBus EVENT_BUS = new EventBus(); // TODO: Move away from static
-    public static final Logger Logger = new Logger("SpaceRace"); // TODO: Move away from static
 
+    private Logger      logger;
     private Window      window;
     private TickManager tickManager;
     private GameManager gameManager;
@@ -38,7 +38,7 @@ public class SpaceRace {
      * @return Logger
      */
     public Logger getLogger() {
-        return Logger;
+        return logger;
     }
 
     /**
@@ -77,14 +77,13 @@ public class SpaceRace {
      * Main method to run Space Race
      */
     public void run() {
-        Logger.info("Starting Space Race");
+        logger = new Logger("SpaceRace");
+        logger.info("Starting Space Race");
 
         tickManager = new TickManager(this);
-        gameManager = new GameManager(this);
-
-        gameManager.start();
-
         window = new Window(this);
+        gameManager = new GameManager(this);
+        gameManager.start();
 
         new KeyInput();
         new WindowResize(window);

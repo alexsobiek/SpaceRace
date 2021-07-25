@@ -233,6 +233,7 @@ public class Window extends JPanel implements Listener {
 
     @Override
     public void paint(Graphics g) {
+        if (sp.getGameManager() == null) return;
         Graphics2D g2d = (Graphics2D) g;
         g2d.setFont(gameFont);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

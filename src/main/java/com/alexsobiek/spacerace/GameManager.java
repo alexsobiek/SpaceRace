@@ -30,8 +30,8 @@ public class GameManager {
     }
 
     private void resetPlayers(boolean resetScore) {
-        window.reset();
-        window.reset();
+        window.getPlayer1().reset(resetScore);
+        window.getPlayer2().reset(resetScore);
     }
 
     /**

@@ -27,9 +27,9 @@ public class Timer implements Listener {
      *
      * @param seconds Amount of time in seconds this timer should have
      */
-    public Timer(SpaceRace sp, int seconds) {
+    public Timer(SpaceRace sp, Window window,  int seconds) {
         this.sp = sp;
-        window = sp.getWindow();
+        this.window = window;
         sp.getEventBus().subscribe(this);
         start(seconds);
     }
@@ -40,12 +40,13 @@ public class Timer implements Listener {
      *
      * @param ticks Amount of time in ticks this timer should have
      */
-    public Timer(SpaceRace sp, long ticks) {
+    public Timer(SpaceRace sp, Window window, long ticks) {
         this.sp = sp;
-        window = sp.getWindow();
+        this.window = window;
         sp.getEventBus().subscribe(this);
         start(ticks);
     }
+
     /**
      * Starts the game timer
      *
@@ -86,15 +87,15 @@ public class Timer implements Listener {
      * @param g2d Graphics2D object
      */
     public void drawTimer(Graphics2D g2d) {
-        g2d.setColor(window.getForeground());
+        g2d.setColor(window.getBackground());
         g2d.setStroke(new BasicStroke(timerStroke));
         g2d.drawLine(window.getHalfX(), 0, window.getHalfX(), window.getWinHeight());
 
         if (sp.getGameManager().isPaused()) g2d.setColor(window.getPauseColor());
-        else g2d.setColor(window.getBackground());
+        else g2d.setColor(window.getForeground());
         g2d.setStroke(new BasicStroke(timerStroke + 1));
         g2d.drawLine(window.getHalfX(), 0, window.getHalfX(), (int) timerHeight);
-        g2d.setColor(window.getForeground()); // Reset Color
+        g2d.setColor(window.getBackground()); // Reset Color
         g2d.setStroke(new BasicStroke(1)); // Reset Stroke
     }
 }

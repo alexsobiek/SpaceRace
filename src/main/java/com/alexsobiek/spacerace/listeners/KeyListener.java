@@ -41,30 +41,30 @@ public class KeyListener implements Listener {
                 if (gm.isRunning()) {
                     if (gm.isPaused()) {
                         tm.startTicking();
-                        window.frame.setBackground(window.backgroundColor);
-                        window.frame.repaint();
+                        window.getFrame().setBackground(window.backgroundColor);
+                        window.getFrame().repaint();
                         gm.setPaused(false);
-                        SpaceRace.Logger.info("Game Unpaused");
+                        sp.getLogger().info("Game Unpaused");
                     } else {
                         tm.stopTicking();
-                        window.frame.setBackground(window.pauseColor);
-                        window.frame.repaint();
+                        window.getFrame().setBackground(window.pauseColor);
+                        window.getFrame().repaint();
                         gm.setPaused(true);
-                        SpaceRace.Logger.info("Game Paused");
+                        sp.getLogger().info("Game Paused");
                     }
                 }
                 break;
             case 87: // Player 1 Up
-                movePlayer(window.player1, MoveDirection.UP);
+                movePlayer(window.getPlayer1(), MoveDirection.UP);
                 break;
             case 83: // Player 1 Down
-                movePlayer(window.player1, MoveDirection.DOWN);
+                movePlayer(window.getPlayer1(), MoveDirection.DOWN);
                 break;
             case 38: // Player 2 Up
-                movePlayer(window.player2, MoveDirection.UP);
+                movePlayer(window.getPlayer2(), MoveDirection.UP);
                 break;
             case 40: // Player 2 Down
-                movePlayer(window.player2, MoveDirection.DOWN);
+                movePlayer(window.getPlayer2(), MoveDirection.DOWN);
                 break;
         }
     }

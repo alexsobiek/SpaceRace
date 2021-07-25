@@ -129,10 +129,10 @@ public class PlayerModel {
         Window window = sp.getWindow();
         g2d.setStroke(new BasicStroke(3));
         if (sp.getGameManager().isPaused()) g2d.setColor(window.getPauseColor());
-        else g2d.setColor(window.getBackground());
+        else g2d.setColor(window.getForeground());
 
         g2d.fillPolygon(model);
-        g2d.setColor(window.getForeground());
+        g2d.setColor(window.getBackground());
         g2d.drawPolygon(model);
         g2d.setStroke(new BasicStroke(1));
     }
