@@ -33,13 +33,13 @@ public class KeyListener implements Listener {
                         Window.frame.setBackground(Window.backgroundColor);
                         Window.frame.repaint();
                         GameManager.setPaused(false);
-                        SpaceRace.LOGGER.info("Game Unpaused");
+                        SpaceRace.Logger.info("Game Unpaused");
                     } else {
                         TickManager.stopTicking();
                         Window.frame.setBackground(Window.pauseColor);
                         Window.frame.repaint();
                         GameManager.setPaused(true);
-                        SpaceRace.LOGGER.info("Game Paused");
+                        SpaceRace.Logger.info("Game Paused");
                     }
                 }
                 break;

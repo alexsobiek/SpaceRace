@@ -16,8 +16,8 @@ import com.alexsobiek.spacerace.util.Logger;
  */
 
 public class SpaceRace {
-    public static final EventBus EVENT_BUS = new EventBus();
-    public static final Logger LOGGER = new Logger("SpaceRace");
+    public static final EventBus eventBus = new EventBus(); // TODO: Move away from static
+    public static final Logger Logger = new Logger("SpaceRace"); // TODO: Move away from static
 
     /**
      * Main entry point for Space Race
@@ -25,11 +25,35 @@ public class SpaceRace {
      * @param args Unused
      */
     public static void main(String[] args) {
-        LOGGER.info("Starting Space Race");
+        new SpaceRace().run();
+    }
+
+    /**
+     * Returns the Logger
+     * @return Logger
+     */
+    public Logger getLogger() {
+        return Logger;
+    }
+
+    /**
+     * Returns the Event Bus
+     * @return EventBus
+     */
+    public EventBus getEventBus() {
+        return eventBus;
+    }
+
+    /**
+     * Main method to run Space Race
+     */
+    public void run() {
+        Logger.info("Starting Space Race");
 
         GameManager.start();
-        new Window();
+        new Window(this);
         new KeyInput();
         new WindowResize();
     }
+
 }

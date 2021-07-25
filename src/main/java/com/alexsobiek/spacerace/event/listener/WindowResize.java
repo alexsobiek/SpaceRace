@@ -12,7 +12,7 @@ public class WindowResize {
         Window.frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent event) {
-                SpaceRace.EVENT_BUS.post(new WindowResizeEvent(event));
+                SpaceRace.eventBus.post(new WindowResizeEvent(event));
             }
         });
     }

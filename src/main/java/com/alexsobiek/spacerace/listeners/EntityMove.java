@@ -38,7 +38,7 @@ public class EntityMove implements Listener {
                 if (player.isOutOfBounds()) {
                     if (loc.getY() <= 0) {
                         player.addScore();
-                        SpaceRace.LOGGER.info("Player with ID: " + player.getId() + " scored. They now have a score of: " + player.getScore());
+                        SpaceRace.Logger.info("Player with ID: " + player.getId() + " scored. They now have a score of: " + player.getScore());
                     }
                     resetEntity(player);
                 }

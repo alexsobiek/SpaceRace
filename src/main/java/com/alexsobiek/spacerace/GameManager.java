@@ -46,7 +46,7 @@ public class GameManager {
             TickManager.startTicking();
             running = true;
         }
-        SpaceRace.LOGGER.info("Game Reset");
+        SpaceRace.Logger.info("Game Reset");
     }
 
     /**
@@ -86,6 +86,6 @@ public class GameManager {
      * @param listener Class to subscribe
      */
     private static void subscribe(Listener listener) {
-        SpaceRace.EVENT_BUS.subscribe(listener);
+        SpaceRace.eventBus.subscribe(listener);
     }
 }

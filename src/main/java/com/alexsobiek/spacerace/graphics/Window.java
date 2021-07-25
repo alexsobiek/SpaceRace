@@ -13,7 +13,6 @@ import com.alexsobiek.spacerace.event.events.WindowResizeEvent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -94,7 +93,7 @@ public class Window extends JPanel implements Listener {
     }
 
     private static void clearTimer() {
-        SpaceRace.EVENT_BUS.unSubscribe(timer);
+        SpaceRace.eventBus.unSubscribe(timer);
         timer = null;
     }
 
@@ -137,10 +136,9 @@ public class Window extends JPanel implements Listener {
         init();
 
 
-        // TODO
         /*
         ========================================
-        To Do:
+        TODO:
         Clearing and respawning all the stars
         creates a break in the game where there
         are no stars. Fix this by dynamically
