@@ -8,8 +8,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class WindowResize {
-    public WindowResize() {
-        Window.frame.addComponentListener(new ComponentAdapter() {
+    public WindowResize(Window window) {
+        window.getFrame().addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent event) {
                 SpaceRace.eventBus.post(new WindowResizeEvent(event));

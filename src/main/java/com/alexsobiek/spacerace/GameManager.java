@@ -6,47 +6,54 @@ import com.alexsobiek.spacerace.listeners.EntityMove;
 import com.alexsobiek.spacerace.listeners.KeyListener;
 
 public class GameManager {
-    private static boolean running = false;
-    private static boolean paused = false;
 
-    private GameManager() {
+    private final SpaceRace sp;
+    private final TickManager tm;
+    private final Window window;
+    private boolean running = false;
+    private boolean paused = false;
+
+    GameManager(SpaceRace sp) {
+        this.sp = sp;
+        this.tm = sp.getTickManager();
+        this.window = sp.getWindow();
     }
 
     /**
      * Starts the game
      */
-    public static void start() {
+    public void start() {
         running = true;
-        subscribe(new KeyListener()); // Subscribes KeyListener to the EventBus
-        subscribe(new EntityMove()); // Subscribes PlayerMove to the EventBus
-        TickManager.startTicking();
+        subscribe(new KeyListener(sp)); // Subscribes KeyListener to the EventBus
+        subscribe(new EntityMove(sp)); // Subscribes PlayerMove to the EventBus
+        sp.getTickManager().startTicking();
     }
 
-    private static void resetPlayers(boolean resetScore) {
-        Window.player1.reset(resetScore);
-        Window.player2.reset(resetScore);
+    private void resetPlayers(boolean resetScore) {
+        window.reset();
+        window.reset();
     }
 
     /**
      * Ends the game
      */
-    public static void end() { // Game over
+    public void end() { // Game over
         resetPlayers(false);
-        TickManager.stopTicking();
+        tm.stopTicking();
         running = false;
     }
 
     /**
      * Restarts the game
      */
-    public static void restart() {
-        Window.reset();
+    public void restart() {
+        sp.getWindow().reset();
         resetPlayers(true);
         if (!running) {
-            TickManager.startTicking();
+            tm.startTicking();
             running = true;
         }
-        SpaceRace.Logger.info("Game Reset");
+        sp.getLogger().info("Game Reset");
     }
 
     /**
@@ -54,12 +61,12 @@ public class GameManager {
      *
      * @return boolean
      */
-    public static boolean isRunning() {
+    public boolean isRunning() {
         return running;
     }
 
-    public static void setRunning(boolean running) {
-        GameManager.running = running;
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 
     /**
@@ -67,7 +74,7 @@ public class GameManager {
      *
      * @return boolean
      */
-    public static boolean isPaused() {
+    public boolean isPaused() {
         return paused;
     }
 
@@ -76,8 +83,8 @@ public class GameManager {
      *
      * @param paused Pause or unpause the game
      */
-    public static void setPaused(boolean paused) {
-        GameManager.paused = paused;
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 
     /**
@@ -85,7 +92,7 @@ public class GameManager {
      *
      * @param listener Class to subscribe
      */
-    private static void subscribe(Listener listener) {
-        SpaceRace.eventBus.subscribe(listener);
+    private void subscribe(Listener listener) {
+        sp.getEventBus().subscribe(listener);
     }
 }

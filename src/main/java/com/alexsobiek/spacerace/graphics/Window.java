@@ -13,6 +13,7 @@ import com.alexsobiek.spacerace.event.events.WindowResizeEvent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -22,17 +23,17 @@ public class Window extends JPanel implements Listener {
 
     private final SpaceRace sp;
     private static final List<Star> stars = new ArrayList<>();
-    public static JFrame frame = null;
-    public static int winHeight;
-    public static int winWidth;
-    public static int halfY;
-    public static int halfX;
-    public static Player player1;
-    public static Player player2;
-    public static Color pauseColor;
-    public static Color foregroundColor;
-    public static Color backgroundColor;
-    private static Timer timer;
+    public JFrame frame;
+    public int winHeight;
+    public int winWidth;
+    public int halfY;
+    public int halfX;
+    public Player player1;
+    public Player player2;
+    public Color pauseColor;
+    public Color foregroundColor;
+    public Color backgroundColor;
+    private Timer timer;
     private final Font gameFont;
 
     /**
@@ -68,7 +69,7 @@ public class Window extends JPanel implements Listener {
     /**
      * Utility class for initializing class variables
      */
-    private static void init() {
+    private void init() {
         pauseColor = Config.getColor(Config.PAUSE_COLOR);
         foregroundColor = Config.getColor(Config.FOREGROUND_COLOR);
         backgroundColor = Config.getColor(Config.BACKGROUND_COLOR);
@@ -78,10 +79,50 @@ public class Window extends JPanel implements Listener {
         halfY = winHeight / 2;
     }
 
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public int getWinHeight() {
+        return winHeight;
+    }
+
+    public int getWinWidth() {
+        return winWidth;
+    }
+
+    public int getHalfY() {
+        return halfY;
+    }
+
+    public int getHalfX() {
+        return halfX;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public Color getPauseColor() {
+        return pauseColor;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public Font getGameFont() {
+        return gameFont;
+    }
+
     /**
      * Resets the window
      */
-    public static void reset() {
+    public void reset() {
         init();
         stars.clear();
         spawnStars();
@@ -89,12 +130,12 @@ public class Window extends JPanel implements Listener {
         frame.repaint();
     }
 
-    public static void startTimer() {
+    public void startTimer() {
         if (timer != null) clearTimer();
-        timer = new Timer(Config.getInt(Config.TIME));
+        timer = new Timer(sp, Config.getInt(Config.TIME));
     }
 
-    private static void clearTimer() {
+    private void clearTimer() {
         SpaceRace.eventBus.unSubscribe(timer);
         timer = null;
     }
@@ -102,12 +143,12 @@ public class Window extends JPanel implements Listener {
     /**
      * Spawns stars to be painted in the window
      */
-    private static void spawnStars() {
+    private void spawnStars() {
         int maxStars = Config.getInt(Config.MAX_STARS);
-        for (int i = 0; i <= maxStars; i++) stars.add(new Star());
+        for (int i = 0; i <= maxStars; i++) stars.add(new Star(this));
     }
 
-    public static List<Star> getStars() {
+    public List<Star> getStars() {
         return stars;
     }
 
@@ -115,8 +156,8 @@ public class Window extends JPanel implements Listener {
      * Spawns players to be painted in the window
      */
     private void spawnPlayers() {
-        player1 = new Player((halfX - 87), (winHeight - 100), 10);
-        player2 = new Player((halfX + 87), (winHeight - 100), 10);
+        player1 = new Player(sp, (halfX - 87), (winHeight - 100), 10);
+        player2 = new Player(sp, (halfX + 87), (winHeight - 100), 10);
     }
 
     /**
@@ -157,7 +198,7 @@ public class Window extends JPanel implements Listener {
         if (component.getHeight() != prevHeight) {
             long ticksRemaining = timer.getRemainingTicks();
             clearTimer();
-            timer = new Timer(ticksRemaining);
+            timer = new Timer(sp, ticksRemaining);
         }
 
         Location player1Location = new Location((halfX - 100), (winHeight - 100));
@@ -201,7 +242,7 @@ public class Window extends JPanel implements Listener {
         g2d.setFont(gameFont);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(foregroundColor);
-        if (GameManager.isRunning() && timer != null) timer.drawTimer(g2d);
+        if (sp.getGameManager().isRunning() && timer != null) timer.drawTimer(g2d);
         else drawCenteredString(g2d, "Game Over!");
 
         if (stars.size() > 0) {

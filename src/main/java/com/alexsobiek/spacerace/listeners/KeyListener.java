@@ -11,7 +11,18 @@ import com.alexsobiek.spacerace.event.events.KeyInputEvent;
 import com.alexsobiek.spacerace.graphics.Window;
 
 public class KeyListener implements Listener {
-    boolean paused = false;
+
+    private final SpaceRace sp;
+    private final GameManager gm;
+    private final Window window;
+    private final TickManager tm;
+
+    public KeyListener(SpaceRace sp) {
+        this.sp = sp;
+        gm = sp.getGameManager();
+        window = sp.getWindow();
+        tm = sp.getTickManager();
+    }
 
     /**
      * Called when a key press event is invoked
@@ -23,43 +34,43 @@ public class KeyListener implements Listener {
         int keyCode = event.getCode();
         switch (keyCode) {
             case 82: // Reset
-                GameManager.restart();
-                Window.startTimer();
+                gm.restart();
+                window.startTimer();
                 break;
             case 80: // Pause
-                if (GameManager.isRunning()) {
-                    if (GameManager.isPaused()) {
-                        TickManager.startTicking();
-                        Window.frame.setBackground(Window.backgroundColor);
-                        Window.frame.repaint();
-                        GameManager.setPaused(false);
+                if (gm.isRunning()) {
+                    if (gm.isPaused()) {
+                        tm.startTicking();
+                        window.frame.setBackground(window.backgroundColor);
+                        window.frame.repaint();
+                        gm.setPaused(false);
                         SpaceRace.Logger.info("Game Unpaused");
                     } else {
-                        TickManager.stopTicking();
-                        Window.frame.setBackground(Window.pauseColor);
-                        Window.frame.repaint();
-                        GameManager.setPaused(true);
+                        tm.stopTicking();
+                        window.frame.setBackground(window.pauseColor);
+                        window.frame.repaint();
+                        gm.setPaused(true);
                         SpaceRace.Logger.info("Game Paused");
                     }
                 }
                 break;
             case 87: // Player 1 Up
-                movePlayer(Window.player1, MoveDirection.UP);
+                movePlayer(window.player1, MoveDirection.UP);
                 break;
             case 83: // Player 1 Down
-                movePlayer(Window.player1, MoveDirection.DOWN);
+                movePlayer(window.player1, MoveDirection.DOWN);
                 break;
             case 38: // Player 2 Up
-                movePlayer(Window.player2, MoveDirection.UP);
+                movePlayer(window.player2, MoveDirection.UP);
                 break;
             case 40: // Player 2 Down
-                movePlayer(Window.player2, MoveDirection.DOWN);
+                movePlayer(window.player2, MoveDirection.DOWN);
                 break;
         }
     }
 
     private void movePlayer(Player player, MoveDirection direction) {
-        if (GameManager.isRunning() && !GameManager.isPaused()) player.move(direction);
+        if (gm.isRunning() && !gm.isPaused()) player.move(direction);
     }
 
 }

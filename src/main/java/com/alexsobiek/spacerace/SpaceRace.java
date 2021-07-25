@@ -1,5 +1,6 @@
 package com.alexsobiek.spacerace;
 
+import com.alexsobiek.spacerace.TickManager;
 import com.alexsobiek.spacerace.event.EventBus;
 import com.alexsobiek.spacerace.event.listener.KeyInput;
 import com.alexsobiek.spacerace.event.listener.WindowResize;
@@ -19,7 +20,9 @@ public class SpaceRace {
     public static final EventBus eventBus = new EventBus(); // TODO: Move away from static
     public static final Logger Logger = new Logger("SpaceRace"); // TODO: Move away from static
 
-    private Window window;
+    private Window      window;
+    private TickManager tickManager;
+    private GameManager gameManager;
 
     /**
      * Main entry point for Space Race
@@ -46,8 +49,28 @@ public class SpaceRace {
         return eventBus;
     }
 
+    /**
+     * Returns the Window class
+     * @return Window
+     */
     public Window getWindow() {
         return window;
+    }
+
+    /**
+     * Returns the Game Manager
+     * @return GameManager
+     */
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    /**
+     * Returns the Tick Manager
+     * @return TickManager
+     */
+    public TickManager getTickManager() {
+        return tickManager;
     }
 
     /**
@@ -56,10 +79,15 @@ public class SpaceRace {
     public void run() {
         Logger.info("Starting Space Race");
 
-        GameManager.start();
+        tickManager = new TickManager(this);
+        gameManager = new GameManager(this);
+
+        gameManager.start();
+
         window = new Window(this);
+
         new KeyInput();
-        new WindowResize();
+        new WindowResize(window);
     }
 
 }

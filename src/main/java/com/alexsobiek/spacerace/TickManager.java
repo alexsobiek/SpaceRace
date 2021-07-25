@@ -7,24 +7,33 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class TickManager {
-    public static final int TPS = Config.getInt(Config.TPS); // Define how many ticks per second the game should have
-    private static ScheduledExecutorService service = null;
 
-    private TickManager() {
+    private final SpaceRace sp;
+    private final int ticksPerSecond;
+    private ScheduledExecutorService service = null;
+
+    TickManager(SpaceRace sp) {
+        this.sp = sp;
+        ticksPerSecond = Config.getInt(Config.TPS);
+
+    }
+
+    public int getTicksPerSecond() {
+        return ticksPerSecond;
     }
 
     /**
      * Creates a Scheduled Thread Pool and begins ticking the game
      */
-    public static void startTicking() {
+    public void startTicking() {
         service = Executors.newScheduledThreadPool(4);
-        service.scheduleAtFixedRate(() -> SpaceRace.eventBus.post(new GameTickEvent()), 0, (1000 / TPS), TimeUnit.MILLISECONDS);
+        service.scheduleAtFixedRate(() -> sp.getEventBus().post(new GameTickEvent()), 0, (1000 / ticksPerSecond), TimeUnit.MILLISECONDS);
     }
 
     /**
      * Stops ticking the game
      */
-    public static void stopTicking() {
+    public void stopTicking() {
         if (service != null) {
             service.shutdown();
             service = null;

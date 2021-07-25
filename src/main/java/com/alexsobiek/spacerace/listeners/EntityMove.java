@@ -13,6 +13,16 @@ import com.alexsobiek.spacerace.graphics.Window;
 
 public class EntityMove implements Listener {
 
+    private final SpaceRace sp;
+    private final GameManager gm;
+    private final Window window;
+
+    public EntityMove(SpaceRace sp) {
+        this.sp = sp;
+        gm = sp.getGameManager();
+        window = sp.getWindow();
+    }
+
     /**
      * Called when an EntityMoveEvent is invoked
      *
@@ -20,17 +30,17 @@ public class EntityMove implements Listener {
      */
     @EventHandler
     public void onEntityMove(EntityMoveEvent event) {
-        if (GameManager.isRunning() || GameManager.isPaused()) {
+        if (gm.isRunning() || gm.isPaused()) {
             IEntity entity = event.getEntity();
             if (entity instanceof Star) {
                 Star star = (Star) event.getEntity();
                 Location loc = star.getLocation();
 
                 // Check if star collides with a player
-                if (Window.player1 != null && Window.player1.getModel().getPolygon().contains(loc.getX(), loc.getY()))
-                    resetEntity(Window.player1);
-                else if (Window.player1 != null && Window.player2.getModel().getPolygon().contains(loc.getX(), loc.getY()))
-                    resetEntity(Window.player2);
+                if (window.player1 != null && window.player1.getModel().getPolygon().contains(loc.getX(), loc.getY()))
+                    resetEntity(window.player1);
+                else if (window.player1 != null && window.player2.getModel().getPolygon().contains(loc.getX(), loc.getY()))
+                    resetEntity(window.player2);
 
             } else if (entity instanceof Player) {
                 Player player = (Player) event.getEntity();
@@ -38,7 +48,7 @@ public class EntityMove implements Listener {
                 if (player.isOutOfBounds()) {
                     if (loc.getY() <= 0) {
                         player.addScore();
-                        SpaceRace.Logger.info("Player with ID: " + player.getId() + " scored. They now have a score of: " + player.getScore());
+                        sp.getLogger().info("Player with ID: " + player.getId() + " scored. They now have a score of: " + player.getScore());
                     }
                     resetEntity(player);
                 }

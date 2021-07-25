@@ -11,6 +11,9 @@ import java.awt.*;
 
 public class Timer implements Listener {
 
+    private final SpaceRace sp;
+    private final Window window;
+
     private final int timerStroke = 10; // Pixels to stroke the timer line
     public long remainingTicks;
     public long totalTicks;
@@ -24,8 +27,10 @@ public class Timer implements Listener {
      *
      * @param seconds Amount of time in seconds this timer should have
      */
-    public Timer(int seconds) {
-        SpaceRace.eventBus.subscribe(this);
+    public Timer(SpaceRace sp, int seconds) {
+        this.sp = sp;
+        window = sp.getWindow();
+        sp.getEventBus().subscribe(this);
         start(seconds);
     }
 
@@ -35,18 +40,19 @@ public class Timer implements Listener {
      *
      * @param ticks Amount of time in ticks this timer should have
      */
-    public Timer(long ticks) {
-        SpaceRace.eventBus.subscribe(this);
+    public Timer(SpaceRace sp, long ticks) {
+        this.sp = sp;
+        window = sp.getWindow();
+        sp.getEventBus().subscribe(this);
         start(ticks);
     }
-
     /**
      * Starts the game timer
      *
      * @param seconds Amount of time in seconds the game should have
      */
     private void start(int seconds) {
-        long totalTicks = (long) seconds * TickManager.TPS;
+        long totalTicks = (long) seconds * sp.getTickManager().getTicksPerSecond();
         start(totalTicks);
     }
 
@@ -59,7 +65,7 @@ public class Timer implements Listener {
         timerHeight = 0;
         this.totalTicks = ticks;
         remainingTicks = ticks;
-        maxTimerHeight = Window.winHeight - (timerStroke * 4);
+        maxTimerHeight = window.getWinHeight() - (timerStroke * 4);
         pixelsPerTick = (double) maxTimerHeight / ticks;
     }
 
@@ -71,7 +77,7 @@ public class Timer implements Listener {
     public void onTick(GameTickEvent event) {
         remainingTicks--;
         timerHeight += pixelsPerTick;
-        if (maxTimerHeight > 0 && timerHeight >= maxTimerHeight) GameManager.end();
+        if (maxTimerHeight > 0 && timerHeight >= maxTimerHeight) sp.getGameManager().end();
     }
 
     /**
@@ -80,15 +86,15 @@ public class Timer implements Listener {
      * @param g2d Graphics2D object
      */
     public void drawTimer(Graphics2D g2d) {
-        g2d.setColor(Window.foregroundColor);
+        g2d.setColor(window.getForeground());
         g2d.setStroke(new BasicStroke(timerStroke));
-        g2d.drawLine(Window.halfX, 0, Window.halfX, Window.winHeight);
+        g2d.drawLine(window.getHalfX(), 0, window.getHalfX(), window.getWinHeight());
 
-        if (GameManager.isPaused()) g2d.setColor(Window.pauseColor);
-        else g2d.setColor(Window.backgroundColor);
+        if (sp.getGameManager().isPaused()) g2d.setColor(window.getPauseColor());
+        else g2d.setColor(window.getBackground());
         g2d.setStroke(new BasicStroke(timerStroke + 1));
-        g2d.drawLine(Window.halfX, 0, Window.halfX, (int) timerHeight);
-        g2d.setColor(Window.foregroundColor); // Reset Color
+        g2d.drawLine(window.getHalfX(), 0, window.getHalfX(), (int) timerHeight);
+        g2d.setColor(window.getForeground()); // Reset Color
         g2d.setStroke(new BasicStroke(1)); // Reset Stroke
     }
 }

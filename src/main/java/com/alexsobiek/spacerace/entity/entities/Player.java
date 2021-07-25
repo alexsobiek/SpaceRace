@@ -1,5 +1,6 @@
 package com.alexsobiek.spacerace.entity.entities;
 
+import com.alexsobiek.spacerace.SpaceRace;
 import com.alexsobiek.spacerace.entity.IEntity;
 import com.alexsobiek.spacerace.entity.Location;
 import com.alexsobiek.spacerace.graphics.PlayerModel;
@@ -8,6 +9,7 @@ import com.alexsobiek.spacerace.graphics.Window;
 import java.util.UUID;
 
 public class Player implements IEntity {
+    private final SpaceRace sp;
     private final PlayerModel playerModel;
     private final int speed;
     private final UUID id;
@@ -23,11 +25,12 @@ public class Player implements IEntity {
      * @param y     Starting Y coordinate
      * @param speed Speed (pixels per tick)
      */
-    public Player(int x, int y, int speed) {
+    public Player(SpaceRace sp, int x, int y, int speed) {
+        this.sp = sp;
         this.speed = speed;
         location = new Location(x, y);
         id = UUID.randomUUID();
-        playerModel = new PlayerModel(location);
+        playerModel = new PlayerModel(sp, location);
     }
 
     /**
@@ -71,7 +74,7 @@ public class Player implements IEntity {
      * @return boolean
      */
     public boolean isOutOfBounds() {
-        return (location.getY() > Window.winHeight || location.getY() <= 0);
+        return (location.getY() > sp.getWindow().getWinHeight() || location.getY() <= 0);
     }
 
     /**

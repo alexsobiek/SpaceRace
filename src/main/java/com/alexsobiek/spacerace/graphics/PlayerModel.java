@@ -1,12 +1,14 @@
 package com.alexsobiek.spacerace.graphics;
 
 import com.alexsobiek.spacerace.GameManager;
+import com.alexsobiek.spacerace.SpaceRace;
 import com.alexsobiek.spacerace.entity.Location;
 
 import java.awt.*;
 
 public class PlayerModel {
-    Polygon model;
+    private final SpaceRace sp;
+    private Polygon model;
 
     int[] xCoords = new int[22];
     int[] yCoords = new int[22];
@@ -20,7 +22,8 @@ public class PlayerModel {
      *
      * @param location location of player model
      */
-    public PlayerModel(Location location) {
+    public PlayerModel(SpaceRace sp, Location location) {
+        this.sp = sp;
         xTop = location.getX();
         yTop = location.getY();
         calculatePos();
@@ -123,12 +126,13 @@ public class PlayerModel {
      * @param g2d Graphics2D object
      */
     public void draw(Graphics2D g2d) {
+        Window window = sp.getWindow();
         g2d.setStroke(new BasicStroke(3));
-        if (GameManager.isPaused()) g2d.setColor(Window.pauseColor);
-        else g2d.setColor(Window.backgroundColor);
+        if (sp.getGameManager().isPaused()) g2d.setColor(window.getPauseColor());
+        else g2d.setColor(window.getBackground());
 
         g2d.fillPolygon(model);
-        g2d.setColor(Window.foregroundColor);
+        g2d.setColor(window.getForeground());
         g2d.drawPolygon(model);
         g2d.setStroke(new BasicStroke(1));
     }

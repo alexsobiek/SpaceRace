@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Star implements IEntity {
+    private final Window window;
     private final int offset;
     private final int speed;
     private final MoveDirection direction;
@@ -19,7 +20,8 @@ public class Star implements IEntity {
      * Constructor:
      * Creates a new star entity
      */
-    public Star() {
+    public Star(Window window) {
+        this.window = window;
         id = UUID.randomUUID();
         MoveDirection[] directions = {MoveDirection.LEFT, MoveDirection.RIGHT};
         direction = directions[rand.nextInt(directions.length)];
@@ -62,7 +64,7 @@ public class Star implements IEntity {
      * @return boolean
      */
     public boolean isOutOfBounds() {
-        return (location.getX() > Window.winWidth && direction == IEntity.MoveDirection.RIGHT ||
+        return (location.getX() > window.getWinWidth() && direction == IEntity.MoveDirection.RIGHT ||
                 location.getX() < 0 && direction == IEntity.MoveDirection.LEFT);
     }
 
@@ -70,9 +72,9 @@ public class Star implements IEntity {
      * Resets the stars position
      */
     public void reset() {
-        int y = rand.nextInt((Window.winHeight / 4) * 3);
+        int y = rand.nextInt((window.getWinHeight() / 4) * 3);
         int x;
-        if (direction == MoveDirection.LEFT) x = Window.winWidth + offset;
+        if (direction == MoveDirection.LEFT) x = window.getWinWidth() + offset;
         else x = -offset;
         location = null;
         location = new Location(x, y);
