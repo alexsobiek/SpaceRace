@@ -1,7 +1,6 @@
 package com.alexsobiek.spacerace.graphics;
 
 import com.alexsobiek.spacerace.Config;
-import com.alexsobiek.spacerace.GameManager;
 import com.alexsobiek.spacerace.SpaceRace;
 import com.alexsobiek.spacerace.entity.Location;
 import com.alexsobiek.spacerace.entity.entities.Player;
@@ -24,8 +23,6 @@ public class Window extends JPanel implements Listener {
     private final SpaceRace sp;
     private static final List<Star> stars = new ArrayList<>();
     public JFrame frame;
-    public int winHeight;
-    public int winWidth;
     public int halfY;
     public int halfX;
     public Player player1;
@@ -73,10 +70,8 @@ public class Window extends JPanel implements Listener {
         pauseColor = Config.getColor(Config.PAUSE_COLOR);
         foregroundColor = Config.getColor(Config.FOREGROUND_COLOR);
         backgroundColor = Config.getColor(Config.BACKGROUND_COLOR);
-        winHeight = frame.getHeight();
-        winWidth = frame.getWidth();
-        halfX = winWidth / 2;
-        halfY = winHeight / 2;
+        halfX = frame.getWidth() / 2;
+        halfY = frame.getHeight() / 2;
     }
 
     public JFrame getFrame() {
@@ -84,11 +79,11 @@ public class Window extends JPanel implements Listener {
     }
 
     public int getWinHeight() {
-        return winHeight;
+        return frame.getHeight();
     }
 
     public int getWinWidth() {
-        return winWidth;
+        return frame.getWidth();
     }
 
     public int getHalfY() {
@@ -132,11 +127,11 @@ public class Window extends JPanel implements Listener {
 
     public void startTimer() {
         if (timer != null) clearTimer();
-        timer = new Timer(sp, Config.getInt(Config.TIME));
+        timer = new Timer(sp, this, Config.getInt(Config.TIME));
     }
 
     private void clearTimer() {
-        SpaceRace.eventBus.unSubscribe(timer);
+        sp.getEventBus().unSubscribe(timer);
         timer = null;
     }
 
@@ -156,8 +151,8 @@ public class Window extends JPanel implements Listener {
      * Spawns players to be painted in the window
      */
     private void spawnPlayers() {
-        player1 = new Player(sp, (halfX - 87), (winHeight - 100), 10);
-        player2 = new Player(sp, (halfX + 87), (winHeight - 100), 10);
+        player1 = new Player(sp, (halfX - 87), (frame.getHeight() - 100), 10);
+        player2 = new Player(sp, (halfX + 87), (frame.getHeight() - 100), 10);
     }
 
     /**
@@ -175,7 +170,7 @@ public class Window extends JPanel implements Listener {
 
     @EventHandler
     public void onResize(WindowResizeEvent event) {
-        int prevHeight = winHeight;
+        int prevHeight = frame.getHeight();
         init();
 
 
@@ -198,11 +193,11 @@ public class Window extends JPanel implements Listener {
         if (component.getHeight() != prevHeight) {
             long ticksRemaining = timer.getRemainingTicks();
             clearTimer();
-            timer = new Timer(sp, ticksRemaining);
+            timer = new Timer(sp, this, ticksRemaining);
         }
 
-        Location player1Location = new Location((halfX - 100), (winHeight - 100));
-        Location player2Location = new Location((halfX + 100), (winHeight - 100));
+        Location player1Location = new Location((halfX - 100), (frame.getHeight() - 100));
+        Location player2Location = new Location((halfX + 100), (frame.getHeight() - 100));
 
         player1.setLocation(player1Location);
         player2.setLocation(player2Location);
@@ -281,10 +276,10 @@ public class Window extends JPanel implements Listener {
         g2d.setFont(gameFont.deriveFont(Font.PLAIN, 58F));
         // Draw player scores
         if (player1 != null) {
-            g2d.drawString(String.valueOf(player1.getScore()), halfX - 185, winHeight - 50);
+            g2d.drawString(String.valueOf(player1.getScore()), halfX - 185, frame.getHeight() - 50);
         }
         if (player2 != null) {
-            g2d.drawString(String.valueOf(player2.getScore()), halfX + 150, winHeight - 50);
+            g2d.drawString(String.valueOf(player2.getScore()), halfX + 150, frame.getHeight() - 50);
         }
         g2d.setFont(gameFont);
     }
