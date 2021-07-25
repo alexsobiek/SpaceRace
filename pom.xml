@@ -89,21 +89,10 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
-                <includes>
-                    <include>**/jasperreports_extension.properties</include>
-                    <include>**/tecsofti-fonts.xml</include>
-                    <include>**/*.ttf</include>
-                </includes>
             </resource>
         </resources>
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 </project>

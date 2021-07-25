@@ -17,7 +17,7 @@ import com.alexsobiek.spacerace.util.Logger;
  */
 
 public class SpaceRace {
-    public static final EventBus eventBus = new EventBus(); // TODO: Move away from static
+    public static final EventBus EVENT_BUS = new EventBus(); // TODO: Move away from static
     public static final Logger Logger = new Logger("SpaceRace"); // TODO: Move away from static
 
     private Window      window;
@@ -46,7 +46,7 @@ public class SpaceRace {
      * @return EventBus
      */
     public EventBus getEventBus() {
-        return eventBus;
+        return EVENT_BUS;
     }
 
     /**
