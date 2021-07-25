@@ -20,6 +20,7 @@ import java.util.List;
 
 public class Window extends JPanel implements Listener {
 
+    private final SpaceRace sp;
     private static final List<Star> stars = new ArrayList<>();
     public static JFrame frame = null;
     public static int winHeight;
@@ -38,8 +39,9 @@ public class Window extends JPanel implements Listener {
      * Constructor:
      * Creates a new window and begins painting
      */
-    public Window() {
-        SpaceRace.EVENT_BUS.subscribe(this);
+    public Window(SpaceRace sp) {
+        this.sp = sp;
+        sp.getEventBus().subscribe(this);
 
         frame = new JFrame("Space Race");
         frame.add(this);
