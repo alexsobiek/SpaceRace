@@ -19,6 +19,8 @@ public class SpaceRace {
     public static final EventBus eventBus = new EventBus(); // TODO: Move away from static
     public static final Logger Logger = new Logger("SpaceRace"); // TODO: Move away from static
 
+    private Window window;
+
     /**
      * Main entry point for Space Race
      *
@@ -44,6 +46,10 @@ public class SpaceRace {
         return eventBus;
     }
 
+    public Window getWindow() {
+        return window;
+    }
+
     /**
      * Main method to run Space Race
      */
@@ -51,7 +57,7 @@ public class SpaceRace {
         Logger.info("Starting Space Race");
 
         GameManager.start();
-        new Window(this);
+        window = new Window(this);
         new KeyInput();
         new WindowResize();
     }
