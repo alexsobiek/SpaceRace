@@ -4,8 +4,8 @@ import com.alexsobiek.spacerace.event.EventBus;
 import com.alexsobiek.spacerace.event.listener.KeyInput;
 import com.alexsobiek.spacerace.event.listener.WindowResize;
 import com.alexsobiek.spacerace.graphics.Window;
+import com.alexsobiek.spacerace.util.Logger;
 
-import java.util.logging.Logger;
 
 /**
  * SpaceRace:
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class SpaceRace {
     public static final EventBus EVENT_BUS = new EventBus();
-    public static final Logger LOGGER = Logger.getLogger("SpaceRace");
+    public static final Logger LOGGER = new Logger("SpaceRace");
 
     /**
      * Main entry point for Space Race
