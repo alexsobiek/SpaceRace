@@ -18,7 +18,7 @@ public class TickManager {
      */
     public static void startTicking() {
         service = Executors.newScheduledThreadPool(4);
-        service.scheduleAtFixedRate(() -> SpaceRace.eventBus.post(new GameTickEvent()), 0, (1000 / TPS), TimeUnit.MILLISECONDS);
+        service.scheduleAtFixedRate(() -> SpaceRace.EVENT_BUS.post(new GameTickEvent()), 0, (1000 / TPS), TimeUnit.MILLISECONDS);
     }
 
     /**

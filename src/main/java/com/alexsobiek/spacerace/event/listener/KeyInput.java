@@ -11,10 +11,10 @@ public class KeyInput {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(event -> {
             switch (event.getID()) {
                 case KeyEvent.KEY_PRESSED:
-                    SpaceRace.eventBus.post(new KeyInputEvent.Pressed(event.getKeyChar(), event.getKeyCode()));
+                    SpaceRace.EVENT_BUS.post(new KeyInputEvent.Pressed(event.getKeyChar(), event.getKeyCode()));
                     break;
                 case KeyEvent.KEY_RELEASED:
-                    SpaceRace.eventBus.post(new KeyInputEvent.Released(event.getKeyChar(), event.getKeyCode()));
+                    SpaceRace.EVENT_BUS.post(new KeyInputEvent.Released(event.getKeyChar(), event.getKeyCode()));
                     break;
             }
             return true;

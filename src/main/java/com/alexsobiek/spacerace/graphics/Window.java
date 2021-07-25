@@ -14,6 +14,7 @@ import com.alexsobiek.spacerace.event.events.WindowResizeEvent;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -56,7 +57,12 @@ public class Window extends JPanel implements Listener {
         startTimer();
 
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts", "FFFFORWA.TTF")).deriveFont(Font.PLAIN, 16F);
+            InputStream stream = getClass().getClassLoader().getResourceAsStream("fonts/FFFFORWA.TTF");
+            if (stream == null) {
+                gameFont = Font.getFont(Font.SANS_SERIF);
+                return;
+            } else gameFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(Font.PLAIN, 16F);
+            stream.close();
         } catch (IOException | FontFormatException e) {
             throw new ExceptionInInitializerError(e);
         }
@@ -95,7 +101,7 @@ public class Window extends JPanel implements Listener {
     }
 
     private static void clearTimer() {
-        SpaceRace.eventBus.unSubscribe(timer);
+        SpaceRace.EVENT_BUS.unSubscribe(timer);
         timer = null;
     }
 

@@ -17,7 +17,7 @@ public interface IEntity {
 
     default boolean fireMoveEvent() {
         EntityMoveEvent moveEvent = new EntityMoveEvent(this);
-        SpaceRace.eventBus.post(moveEvent);
+        SpaceRace.EVENT_BUS.post(moveEvent);
         return !moveEvent.isCancelled();
     }
 

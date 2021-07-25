@@ -86,6 +86,6 @@ public class GameManager {
      * @param listener Class to subscribe
      */
     private static void subscribe(Listener listener) {
-        SpaceRace.eventBus.subscribe(listener);
+        SpaceRace.EVENT_BUS.subscribe(listener);
     }
 }

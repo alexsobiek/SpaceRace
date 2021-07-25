@@ -25,7 +25,7 @@ public class Timer implements Listener {
      * @param seconds Amount of time in seconds this timer should have
      */
     public Timer(int seconds) {
-        SpaceRace.eventBus.subscribe(this);
+        SpaceRace.EVENT_BUS.subscribe(this);
         start(seconds);
     }
 
@@ -36,7 +36,7 @@ public class Timer implements Listener {
      * @param ticks Amount of time in ticks this timer should have
      */
     public Timer(long ticks) {
-        SpaceRace.eventBus.subscribe(this);
+        SpaceRace.EVENT_BUS.subscribe(this);
         start(ticks);
     }
 
